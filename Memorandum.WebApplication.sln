@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memorandum.WebApplication", "Memorandum.WebApplication\Memorandum.WebApplication.csproj", "{D39AB82D-507B-49B6-8672-9E750F597D38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memorandum.WebApplication", "Memorandum.WebApplication\Memorandum.WebApplication.csproj", "{D39AB82D-507B-49B6-8672-9E750F597D38}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memorandum.Service", "Memorandum.Service\Memorandum.Service.csproj", "{5B94D2CE-D79A-4717-81E6-0B0BD69A3289}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memorandum.Repository", "Memorandum.Repository\Memorandum.Repository.csproj", "{DAE591A5-AD1D-44AF-8530-41CEB72E062D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Memorandum.Common", "Memorandum.Common\Memorandum.Common.csproj", "{43FA1423-ED7A-4983-AD20-3AFED62CE6FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{D39AB82D-507B-49B6-8672-9E750F597D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D39AB82D-507B-49B6-8672-9E750F597D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D39AB82D-507B-49B6-8672-9E750F597D38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B94D2CE-D79A-4717-81E6-0B0BD69A3289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B94D2CE-D79A-4717-81E6-0B0BD69A3289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B94D2CE-D79A-4717-81E6-0B0BD69A3289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B94D2CE-D79A-4717-81E6-0B0BD69A3289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAE591A5-AD1D-44AF-8530-41CEB72E062D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAE591A5-AD1D-44AF-8530-41CEB72E062D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAE591A5-AD1D-44AF-8530-41CEB72E062D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAE591A5-AD1D-44AF-8530-41CEB72E062D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43FA1423-ED7A-4983-AD20-3AFED62CE6FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43FA1423-ED7A-4983-AD20-3AFED62CE6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43FA1423-ED7A-4983-AD20-3AFED62CE6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43FA1423-ED7A-4983-AD20-3AFED62CE6FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
