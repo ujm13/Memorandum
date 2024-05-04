@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\ResultModelDto\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Memorandum.Repository\Memorandum.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
