@@ -14,6 +14,6 @@ namespace Memorandum.Repository.Interfaces
         /// </summary>
         /// <param name="registerMemberParameter"></param>
         /// <returns></returns>
-        Task<bool> RegisterAsync(RegisterMemberParameter registerMemberParameter);
+        Task<bool> InsterAsync(RegisterMemberParameter registerMemberParameter);
     }
 }

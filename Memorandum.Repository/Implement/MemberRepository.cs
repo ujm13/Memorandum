@@ -27,7 +27,7 @@ namespace Memorandum.Repository.Implement
         /// <param name="registerMemberParameter"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<bool> RegisterAsync(RegisterMemberParameter registerMemberParameter)
+        public async Task<bool> InsterAsync(RegisterMemberParameter registerMemberParameter)
         {
             var sql = @"insert into  Member (
                     Id,
