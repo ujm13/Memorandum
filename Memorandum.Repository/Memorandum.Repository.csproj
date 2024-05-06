@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\ResultDto\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
@@ -18,6 +14,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Memorandum.Common\Memorandum.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\DataModels\" />
   </ItemGroup>
 
 </Project>
