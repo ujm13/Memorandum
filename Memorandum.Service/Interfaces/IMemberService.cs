@@ -9,6 +9,7 @@ namespace Memorandum.Service.Interfaces
 {
     public interface IMemberService
     {
+
         /// <summary>
         /// 註冊會員
         /// </summary>
