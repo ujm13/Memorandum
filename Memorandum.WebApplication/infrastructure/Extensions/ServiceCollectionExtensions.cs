@@ -5,11 +5,11 @@ using Memorandum.Service.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
 
-namespace Memorandum.WebApplication.infrastructure.ServiceCollectionExtensions
+namespace Memorandum.WebApplication.infrastructure.Extensions
 {
-    public static class DependencyInjection
+    public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDependencyInjection(this IServiceCollection services) 
+        public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
         {
             services.AddScoped<IMemberRepository, MemberRepository>();
             services.AddScoped<IMemberService, MemberService>();

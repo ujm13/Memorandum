@@ -1,11 +1,11 @@
 ﻿using Memorandum.Common.Options;
 
-namespace Memorandum.WebApplication.infrastructure.ServiceCollectionExtensions
+namespace Memorandum.WebApplication.infrastructure.Extensions
 {
     public static class OptionsExtensions
     {
 
-        public static IServiceCollection AddOptionsDependency(this IServiceCollection serviceCollection) 
+        public static IServiceCollection AddOptionsDependency(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddOptions<DbConnectionOptions>().BindConfiguration("DbConnection");
             return serviceCollection;
