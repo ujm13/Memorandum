@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Memorandum.Common\Memorandum.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\DataModels\" />
-  </ItemGroup>
-
 </Project>

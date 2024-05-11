@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Memorandum.Common.Options;
 using Memorandum.Repository.Interfaces;
+using Memorandum.Repository.Models.DataModels;
 using Memorandum.Repository.Models.ParamaterModels;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
@@ -21,15 +22,16 @@ namespace Memorandum.Repository.Implement
             _dbConnectionOptions = dbConnectionOptions.Value;
         }
 
+
+
         /// <summary>
         /// 用戶註冊 將資料存入DB
         /// </summary>
         /// <param name="registerMemberParameter"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public async Task<bool> InsterAsync(RegisterMemberParameter registerMemberParameter)
         {
-            var sql = @"insert into  Member (
+            var sql = @"insert into  Members (
                     Id,
                     UserName ,
                     Account ,
@@ -52,5 +54,23 @@ namespace Memorandum.Repository.Implement
             var result = await conn.ExecuteAsync(sql, registerMemberParameter);
             return result > 0;
         }
+
+        /// <summary>
+        /// 會員登入查詢
+        /// </summary>
+        /// <param name="loginMemberParameter"></param>
+        /// <returns></returns>
+        public async Task<LoginMemberDataModel> GetAsync(LoginMemberParameter loginMemberParameter)
+        {
+            var sql = @"Select Account , Password , UserName ,Email 
+                        From Members
+                        Where Account=@Account";
+
+            using var conn= new SqlConnection(_dbConnectionOptions.Member);
+            var result=await conn.QueryFirstOrDefaultAsync<LoginMemberDataModel>(sql, loginMemberParameter);
+            return result;
+        }
     }
+
+
 }
