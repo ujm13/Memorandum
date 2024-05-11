@@ -29,7 +29,7 @@ namespace Memorandum.Repository.Implement
         /// </summary>
         /// <param name="registerMemberParameter"></param>
         /// <returns></returns>
-        public async Task<bool> InsterAsync(RegisterMemberParameter registerMemberParameter)
+        public async Task<bool> InsterAsync(RegisterMemberParameterModel registerMemberParameter)
         {
             var sql = @"insert into  Members (
                     Id,
@@ -60,7 +60,7 @@ namespace Memorandum.Repository.Implement
         /// </summary>
         /// <param name="loginMemberParameter"></param>
         /// <returns></returns>
-        public async Task<LoginMemberDataModel> GetAsync(LoginMemberParameter loginMemberParameter)
+        public async Task<LoginMemberDataModel> GetAsync(LoginMemberParameterModel loginMemberParameter)
         {
             var sql = @"Select Account , Password , UserName ,Email 
                         From Members

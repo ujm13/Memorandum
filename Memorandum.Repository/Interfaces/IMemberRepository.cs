@@ -15,14 +15,14 @@ namespace Memorandum.Repository.Interfaces
         /// </summary>
         /// <param name="registerMemberParameter"></param>
         /// <returns></returns>
-        Task<bool> InsterAsync(RegisterMemberParameter registerMemberParameter);
+        Task<bool> InsterAsync(RegisterMemberParameterModel registerMemberParameter);
 
         /// <summary>
         /// 會員登入查詢
         /// </summary>
         /// <param name="loginMemberParameter"></param>
         /// <returns></returns>
-        Task<LoginMemberDataModel> GetAsync(LoginMemberParameter loginMemberParameter);
+        Task<LoginMemberDataModel> GetAsync(LoginMemberParameterModel loginMemberParameter);
 
 
 

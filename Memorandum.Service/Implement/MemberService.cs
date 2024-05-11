@@ -1,9 +1,11 @@
 ﻿using MapsterMapper;
-using Memorandum.Repository.Exceptions;
 using Memorandum.Repository.Interfaces;
 using Memorandum.Repository.Models.ParamaterModels;
+using Memorandum.Service.Exceptions;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParamaterModelDto;
+using Memorandum.Service.Models.ParameterDto;
+using Memorandum.Service.Models.ResultModelDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,8 @@ namespace Memorandum.Service.Implement
             _memberRepository = memberRepository;
             _mapper = mapper;
         }
+
+
         /// <summary>
         /// 註冊會員
         /// </summary>
@@ -30,15 +34,45 @@ namespace Memorandum.Service.Implement
         /// <exception cref="NotImplementedException"></exception>
         public async Task<bool> RegisterAsync(RegisterMemberParameterDto parameterDto)
         {
-            var parameterModel= _mapper.Map<RegisterMemberParameter>(parameterDto);
+            var parameterModel= _mapper.Map<RegisterMemberParameterModel>(parameterDto);
 
-            //Db操作就用Db的名稱不用用商業邏輯的名稱，或是Create
+
             var success=await _memberRepository.InsterAsync(parameterModel);
             if (!success) 
             {
                 throw new RegisterException("會員註冊資料插入失敗");
             }
             return success;
+        }
+
+
+        /// <summary>
+        /// 會員登入
+        /// </summary>
+        /// <param name="loginMemberParameterDto"></param>
+        /// <returns></returns>
+
+        public async Task<LoginMemberResultDto> LoginAsync(LoginMemberParameterDto loginMemberParameterDto)
+        {
+            var parameterDto = _mapper.Map<LoginMemberParameterModel>(loginMemberParameterDto);
+            var member=await _memberRepository.GetAsync(parameterDto);
+            if (member is null) 
+            {
+                throw new MemberNotFoundException("查無此會員");
+            }
+
+            if (member.Password != loginMemberParameterDto.Password) 
+            {
+                throw new LoginFailedException("會員密碼錯誤");
+            }
+
+            return new LoginMemberResultDto 
+            {
+                Account= member.Account,
+                UserName= member.UserName,
+                Email= member.Email,
+            };
+
         }
     }
 }

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Memorandum.Repository.Exceptions
+namespace Memorandum.Service.Exceptions
 {
-    public class RegisterException:Exception
+    public class LoginFailedException:Exception
     {
-        public RegisterException(string message):base(message)
+        public LoginFailedException(string message): base(message)
         { 
         }
     }

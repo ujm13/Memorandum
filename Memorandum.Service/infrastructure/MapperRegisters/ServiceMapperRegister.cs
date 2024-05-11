@@ -12,7 +12,7 @@ namespace Memorandum.Repository.infrastructure.MapperRegisters
     {
         public void Register(TypeAdapterConfig config) 
         {
-            config.NewConfig<RegisterMemberParameter, RegisterMemberParameter>();
+            config.NewConfig<RegisterMemberParameterModel, RegisterMemberParameterModel>();
         }
     }
 }
