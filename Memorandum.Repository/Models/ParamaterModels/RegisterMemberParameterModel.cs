@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Memorandum.Repository.Models.ParamaterModels
 {
-    public class RegisterMemberParameter
+    public class RegisterMemberParameterModel
     {
         /// <summary>
         /// 帳戶ID
