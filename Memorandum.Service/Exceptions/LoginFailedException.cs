@@ -10,6 +10,7 @@ namespace Memorandum.Service.Exceptions
     {
         public LoginFailedException(string message): base(message)
         { 
+
         }
     }
 }

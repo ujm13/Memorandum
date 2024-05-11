@@ -2,6 +2,7 @@
 using MapsterMapper;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParamaterModelDto;
+using Memorandum.Service.Models.ParameterDto;
 using Memorandum.WebApplication.infrastructure.ExceptionFilters;
 using Memorandum.WebApplication.Models.Parameters;
 using Memorandum.WebApplication.Models.ViewModels;
@@ -49,5 +50,30 @@ namespace Memorandum.WebApplication.Controllers
                 StatusMessage = "註冊會員成功"
             });
         }
+
+        [HttpGet]
+        [LoginFailedExceptionFilter]
+        [MemberNotFoundExceptionFilter]
+        public async Task<IActionResult> LoginAsync(LoginMemberParameter parameter) 
+        {
+            var parameterDto = _mapper.Map<LoginMemberParameterDto>(parameter);
+            var resultDto = await _memberService.LoginAsync(parameterDto);
+            if (resultDto is null)
+            {
+                return BadRequest(new ResultViewModel
+                {
+                    StatuesCode = 400,
+                    StatusMessage = "會員登入失敗"
+                });
+            }
+
+            return Ok(new ResultViewModel
+            {
+                StatuesCode = 200,
+                StatusMessage = "會員登入成功"
+            });
+        }
+
+
     }
 }
