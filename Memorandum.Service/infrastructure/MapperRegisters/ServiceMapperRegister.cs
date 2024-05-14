@@ -16,6 +16,7 @@ namespace Memorandum.Repository.infrastructure.MapperRegisters
         {
             config.NewConfig<RegisterMemberParameterModel, RegisterMemberParameterModel>();
             config.NewConfig<LoginMemberParameterDto, LoginMemberParameterModel>();
+            config.NewConfig<CreateMemorandumParameterDto, InsertMemorandumParameterModel>();
         }
     }
 }

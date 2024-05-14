@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Memorandum.WebApplication.infrastructure.ExceptionFilters
 {
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public class MemberNotFoundExceptionFilter: ExceptionFilterAttribute
     {
         public override Task OnExceptionAsync(ExceptionContext context) 
