@@ -15,6 +15,6 @@ namespace Memorandum.WebApplication.infrastructure.ExceptionFilters
 
             return base.OnExceptionAsync(context);
         }
-
+         
     }
 }
