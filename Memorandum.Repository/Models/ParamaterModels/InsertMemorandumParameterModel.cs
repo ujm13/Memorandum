@@ -1,5 +1,5 @@
 ﻿using Mapster.Utils;
-using Memorandum.Repository.Models.ParamaterModels.Enums;
+using Memorandum.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

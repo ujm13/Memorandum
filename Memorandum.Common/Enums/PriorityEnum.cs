@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Memorandum.Repository.Models.ParamaterModels.Enums
+namespace Memorandum.Common.Enums
 {
     public enum PriorityEnum
     {
