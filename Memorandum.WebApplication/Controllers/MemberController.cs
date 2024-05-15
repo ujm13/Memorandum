@@ -51,6 +51,11 @@ namespace Memorandum.WebApplication.Controllers
             });
         }
 
+        /// <summary>
+        /// 會員登入
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
         [HttpGet]
         [LoginFailedExceptionFilter]
         [MemberNotFoundExceptionFilter]

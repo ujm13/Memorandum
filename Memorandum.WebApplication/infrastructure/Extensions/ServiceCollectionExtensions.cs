@@ -14,6 +14,8 @@ namespace Memorandum.WebApplication.infrastructure.Extensions
             services.AddScoped<IMemberRepository, MemberRepository>();
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<IMemorandumRepository, MemorandumRepository>();
+            services.AddScoped<IMemorandumService, MemorandumService>();
+            
             return services;
         }
     }
