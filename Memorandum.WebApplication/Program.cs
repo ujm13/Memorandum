@@ -3,6 +3,7 @@ using Mapster;
 using MapsterMapper;
 using Memorandum.Common.Options;
 using Memorandum.Repository.infrastructure.MapperRegisters;
+using Memorandum.WebApplication.infrastructure;
 using Memorandum.WebApplication.infrastructure.Extensions;
 using Memorandum.WebApplication.infrastructure.MapperRegisters;
 using Microsoft.OpenApi.Models;
@@ -35,7 +36,12 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddOptionsDependency()
                 .AddDependencyInjection();
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.DocumentFilter<SwaggerEnumDocumentFilter>();
+});
 
+builder.Services.AddHealthChecks();
 
 
 #region Version
@@ -70,7 +76,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.MapHealthChecks("/health");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
