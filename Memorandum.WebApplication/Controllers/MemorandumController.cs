@@ -36,17 +36,19 @@ namespace Memorandum.WebApplication.Controllers
             if (!success)
             {
                 return BadRequest(
-                    new ResultViewModel
+                    new ResultViewModel<bool>
                     {
                         StatuesCode = 400,
-                        StatusMessage = "新增代辦事項失敗"
+                        StatusMessage = "新增代辦事項失敗",
+                        Data= success
                     });
             }
 
-            return Ok(new ResultViewModel
+            return Ok(new ResultViewModel<bool>
             {
                 StatuesCode = 200,
-                StatusMessage = "新增代辦事項成功"
+                StatusMessage = "新增代辦事項成功",
+                Data= success
             });
         }
 
