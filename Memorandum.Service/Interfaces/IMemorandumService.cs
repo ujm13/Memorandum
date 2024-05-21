@@ -29,5 +29,11 @@ namespace Memorandum.Service.Interfaces
         /// <param name="parameterModel">The parameter model.</param>
         /// <returns></returns>
         Task<MemorandumResultModelDto> GetDetailAsync(Guid id);
+
+        /// <summary>
+        /// 取得所有資料
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<MemorandumResultModelDto>> GetAllAsync();
     }
 }

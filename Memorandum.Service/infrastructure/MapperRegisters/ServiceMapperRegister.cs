@@ -20,6 +20,7 @@ namespace Memorandum.Repository.infrastructure.MapperRegisters
             config.NewConfig<CreateMemorandumParameterDto, InsertMemorandumParameterModel>();
             config.NewConfig<UpdateMemorandumParameterDto, UpdateMemorandumParameterModel>();
             config.NewConfig<MemorandumResultModelDto, MemorandumDataModel>();
+           
         }
     }
 }

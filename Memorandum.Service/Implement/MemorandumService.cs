@@ -81,5 +81,18 @@ namespace Memorandum.Service.Implement
             return resultModelDto;
 
         }
+
+
+        /// <summary>
+        /// 取得所有資料
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<MemorandumResultModelDto>> GetAllAsync()
+        {
+            var resultDataModel = await _memorandumRepository.GetAllAsync();
+            var resultModelDto = _mapper.Map<IEnumerable<MemorandumResultModelDto>>(resultDataModel);
+
+            return resultModelDto;
+        }
     }
 }
