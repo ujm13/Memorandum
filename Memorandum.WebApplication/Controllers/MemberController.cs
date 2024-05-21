@@ -38,16 +38,18 @@ namespace Memorandum.WebApplication.Controllers
             if (!success)
             {
                 return BadRequest(
-                    new ResultViewModel
+                    new ResultViewModel<bool>
                     {
                         StatuesCode = 400,
-                        StatusMessage = "註冊會員失敗"
+                        StatusMessage = "註冊會員失敗",
+                        Data= success
                     });
             }
-            return Ok(new ResultViewModel
+            return Ok(new ResultViewModel<bool>
             {
                 StatuesCode = 200,
-                StatusMessage = "註冊會員成功"
+                StatusMessage = "註冊會員成功",
+                Data = success
             });
         }
 
@@ -63,19 +65,22 @@ namespace Memorandum.WebApplication.Controllers
         {
             var parameterDto = _mapper.Map<LoginMemberParameterDto>(parameter);
             var resultDto = await _memberService.LoginAsync(parameterDto);
+            var resultViewModel = _mapper.Map<LoginMemberResultViewModel>(resultDto);
             if (resultDto is null)
             {
-                return BadRequest(new ResultViewModel
+                return BadRequest(new ResultViewModel<LoginMemberResultViewModel>
                 {
                     StatuesCode = 400,
-                    StatusMessage = "會員登入失敗"
+                    StatusMessage = "會員登入失敗",
+                    Data = resultViewModel
                 });
             }
 
-            return Ok(new ResultViewModel
+            return Ok(new ResultViewModel<LoginMemberResultViewModel>
             {
                 StatuesCode = 200,
-                StatusMessage = "會員登入成功"
+                StatusMessage = "會員登入成功",
+                Data = resultViewModel
             });
         }
 
