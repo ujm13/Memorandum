@@ -5,6 +5,7 @@ using Memorandum.Repository.Models.ParamaterModels;
 using Memorandum.Service.Exceptions;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParameterDto;
+using Memorandum.Service.Models.ResultModelDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +55,31 @@ namespace Memorandum.Service.Implement
             }
 
             return success;
+        }
+
+        /// <summary>
+        /// 取得明細
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<MemorandumResultModelDto> GetDetailAsync(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new MemorandumNotFountException($"id {id} is empty");
+            }
+
+            var resultDataModel = await _memorandumRepository.GetDetailAsync(id);
+
+            if (resultDataModel is null)
+            {
+                throw new MemorandumNotFountException($"id {id} not found");
+            }
+
+            var resultModelDto = _mapper.Map<MemorandumResultModelDto>(resultDataModel);
+
+            return resultDataModel;
+
         }
     }
 }

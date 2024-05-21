@@ -1,4 +1,5 @@
 ﻿using Memorandum.Service.Models.ParameterDto;
+using Memorandum.Service.Models.ResultModelDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,12 @@ namespace Memorandum.Service.Interfaces
         /// <param name="parameterModel">The parameter model.</param>
         /// <returns></returns>
         Task<bool> UpdateAsync(UpdateMemorandumParameterDto parameterDto);
+
+        /// <summary>
+        /// 取得明細
+        /// </summary>
+        /// <param name="parameterModel">The parameter model.</param>
+        /// <returns></returns>
+        Task<MemorandumResultModelDto> GetDetailAsync(Guid id);
     }
 }
