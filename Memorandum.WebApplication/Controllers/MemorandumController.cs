@@ -52,5 +52,34 @@ namespace Memorandum.WebApplication.Controllers
             });
         }
 
+        /// <summary>
+        /// 修改代辦事項
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
+        [HttpPost("Update")]
+        [MemorandumExceptionFilter]
+        public async Task<IActionResult> UpdateAsync(UpdateMemorandumParameter parameter)
+        {
+            var parameterDto = _mapper.Map<UpdateMemorandumParameterDto>(parameter);
+            var success = await _memorandumService.UpdateAsync(parameterDto);
+            if (!success)
+            {
+                return BadRequest(new ResultViewModel<bool>
+                {
+                    StatuesCode = 400,
+                    StatusMessage = "修改代辦事項失敗",
+                    Data = success
+                });
+            }
+
+            return Ok(new ResultViewModel<bool>
+            {
+                StatuesCode = 200,
+                StatusMessage = "修改代辦事項成功",
+                Data = success
+            });
+        }
+
     }
 }

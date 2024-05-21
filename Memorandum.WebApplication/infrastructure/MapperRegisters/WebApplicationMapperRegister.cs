@@ -15,7 +15,12 @@ namespace Memorandum.WebApplication.infrastructure.MapperRegisters
                 .Map(a => a.CreateTime, b => DateTime.Now)
                 .Map(a => a.UpdateTime, b => DateTime.Now)
                 .Map(a=>a.Id,b=>Guid.NewGuid());
-            
+            config.NewConfig<UpdateMemorandumParameter, UpdateMemorandumParameterDto>()
+                .Map(a => a.UpdateTime, b => DateTime.Now);
+
+
+
+
         }
     }
 }
