@@ -1,4 +1,5 @@
-﻿using Memorandum.Repository.Models.ParamaterModels;
+﻿using Memorandum.Repository.Models.DataModels;
+using Memorandum.Repository.Models.ParamaterModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,6 @@ namespace Memorandum.Repository.Interfaces
         /// </summary>
         /// <param name="parameterModel">The parameter model.</param>
         /// <returns></returns>
-        Task<MemorandumResultModel> GetDetailAsync(Guid id);
+        Task<MemorandumDataModel> GetDetailAsync(Guid id);
     }
 }

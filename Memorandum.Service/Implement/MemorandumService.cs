@@ -78,7 +78,7 @@ namespace Memorandum.Service.Implement
 
             var resultModelDto = _mapper.Map<MemorandumResultModelDto>(resultDataModel);
 
-            return resultDataModel;
+            return resultModelDto;
 
         }
     }

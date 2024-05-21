@@ -2,6 +2,7 @@
 using Memorandum.Repository.Models.DataModels;
 using Memorandum.Repository.Models.ParamaterModels;
 using Memorandum.Service.Models.ParameterDto;
+using Memorandum.Service.Models.ResultModelDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Memorandum.Repository.infrastructure.MapperRegisters
             config.NewConfig<LoginMemberParameterDto, LoginMemberParameterModel>();
             config.NewConfig<CreateMemorandumParameterDto, InsertMemorandumParameterModel>();
             config.NewConfig<UpdateMemorandumParameterDto, UpdateMemorandumParameterModel>();
-            
+            config.NewConfig<MemorandumResultModelDto, MemorandumDataModel>();
         }
     }
 }
