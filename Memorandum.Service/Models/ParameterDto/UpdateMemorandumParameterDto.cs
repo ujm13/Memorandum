@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Memorandum.Repository.Models.ParamaterModels
+namespace Memorandum.Service.Models.ParameterDto
 {
-    public class UpdateMemorandumParameterModel
+    public class UpdateMemorandumParameterDto
     {
         /// <summary>
         /// 標題
@@ -41,4 +41,3 @@ namespace Memorandum.Repository.Models.ParamaterModels
         public DateTime UpdateTime { get; set; }
     }
 }
-

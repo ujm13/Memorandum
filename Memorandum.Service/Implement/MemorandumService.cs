@@ -38,5 +38,22 @@ namespace Memorandum.Service.Implement
             }
             return success;
         }
+
+        /// <summary>
+        /// 修改代辦事項
+        /// </summary>
+        /// <param name="parameterModel">The parameter model.</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateAsync(UpdateMemorandumParameterDto parameterDto)
+        {
+            var parameterModel = _mapper.Map<UpdateMemorandumParameterModel>(parameterDto);
+            var success = await _memorandumRepository.UpdateAsync(parameterModel);
+            if (!success)  
+            {
+                throw new MemorandumException("更新代辦事項失敗");
+            }
+
+            return success;
+        }
     }
 }
