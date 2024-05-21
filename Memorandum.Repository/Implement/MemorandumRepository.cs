@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Memorandum.Common.Options;
 using Memorandum.Repository.Interfaces;
+using Memorandum.Repository.Models.DataModels;
 using Memorandum.Repository.Models.ParamaterModels;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
@@ -73,6 +74,33 @@ namespace Memorandum.Repository.Implement
             using var conn = new SqlConnection(_dbConnectionOptions.Member);
             var result = await conn.ExecuteAsync(sql, parameterModel);
             return result > 0;
+        }
+
+        /// <summary>
+        /// 取得明細
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<MemorandumDataModel> GetDetailAsync(Guid id)
+        {
+            var sql = @"
+                SELECT Id,
+                       Title,
+                       Description,
+                       DueDate,
+                       Status,
+                       Priority,
+                       CreateTime,
+                       UpdateTime
+                FROM Memorandum
+                WHERE Id = @Id
+                ";
+
+            using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            var parameter = new DynamicParameters();
+            parameter.Add("Id", id);
+            var result = await conn.QueryFirstOrDefault(sql, parameter);
+            return result;
         }
 
     }

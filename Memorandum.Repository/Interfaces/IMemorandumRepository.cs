@@ -22,5 +22,12 @@ namespace Memorandum.Repository.Interfaces
         /// <param name="parameterModel">The parameter model.</param>
         /// <returns></returns>
         Task<bool> UpdateAsync(UpdateMemorandumParameterModel parameterModel);
+
+        /// <summary>
+        /// 取得明細
+        /// </summary>
+        /// <param name="parameterModel">The parameter model.</param>
+        /// <returns></returns>
+        Task<MemorandumResultModel> GetDetailAsync(Guid id);
     }
 }
