@@ -6,6 +6,7 @@ using Memorandum.WebApplication.infrastructure.ExceptionFilters;
 using Memorandum.WebApplication.Models.Parameters;
 using Memorandum.WebApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata;
 
 namespace Memorandum.WebApplication.Controllers
 {
@@ -78,6 +79,35 @@ namespace Memorandum.WebApplication.Controllers
                 StatuesCode = 200,
                 StatusMessage = "修改代辦事項成功",
                 Data = success
+            });
+        }
+
+        /// <summary>
+        /// 取得代辦事項名細
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
+        [HttpGet]
+        [MemorandumNotFountExceptionFilter]
+        public async Task<IActionResult> GetDetailAsync(Guid id)
+        {
+            var result = await _memorandumService.GetDetailAsync(id);
+            var resultViewModel = _mapper.Map<MemorandumResultViewModel>(result);
+            if (result is null)
+            {
+                return BadRequest(new ResultViewModel<MemorandumResultViewModel>
+                {
+                    StatuesCode = 400,
+                    StatusMessage = "取得代辦事項明細失敗",
+                    Data = resultViewModel
+                });
+            }
+
+            return Ok(new ResultViewModel<MemorandumResultViewModel>
+            {
+                StatuesCode = 200,
+                StatusMessage = "取得代辦事項明細成功",
+                Data = resultViewModel
             });
         }
 

@@ -1,7 +1,9 @@
 ﻿using Mapster;
 using Memorandum.Service.Models.ParamaterModelDto;
 using Memorandum.Service.Models.ParameterDto;
+using Memorandum.Service.Models.ResultModelDto;
 using Memorandum.WebApplication.Models.Parameters;
+using Memorandum.WebApplication.Models.ViewModels;
 
 namespace Memorandum.WebApplication.infrastructure.MapperRegisters
 {
@@ -17,6 +19,8 @@ namespace Memorandum.WebApplication.infrastructure.MapperRegisters
                 .Map(a=>a.Id,b=>Guid.NewGuid());
             config.NewConfig<UpdateMemorandumParameter, UpdateMemorandumParameterDto>()
                 .Map(a => a.UpdateTime, b => DateTime.Now);
+            config.NewConfig<MemorandumResultModelDto, MemorandumResultViewModel>();
+            
 
 
 
