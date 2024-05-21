@@ -103,5 +103,26 @@ namespace Memorandum.Repository.Implement
             return result;
         }
 
+        /// <summary>
+        /// 取得所有資料
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<MemorandumDataModel>> GetAllAsync()
+        {
+            var sql = @"SELECT  Id,
+                                Title,
+                                Description,
+                                DueDate,
+                                Status,
+                                Priority,
+                                CreateTime,
+                                UpdateTime
+                          FROM  Memorandum";
+
+            using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            var result = await conn.QueryAsync<MemorandumDataModel>(sql);
+            return result;
+        }
+
     }
 }
