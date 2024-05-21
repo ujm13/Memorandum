@@ -52,5 +52,28 @@ namespace Memorandum.Repository.Implement
             return result>0;
 
         }
+
+        /// <summary>
+        /// 修改代辦事項
+        /// </summary>
+        /// <param name="parameterModel">The parameter model.</param>
+        /// <returns></returns>
+        public async Task<bool> UpdateAsync(UpdateMemorandumParameterModel parameterModel)
+        {
+            var sql = @"UPDATE Memorandum
+                SET 
+                    Title = @Title,
+                    Description = @Description,
+                    DueDate = @DueDate,
+                    Status = @Status,
+                    Priority = @Priority,
+                    UpdateTime = @UpdateTime
+                WHERE 
+                    Id = @Id";
+            using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            var result = await conn.ExecuteAsync(sql, parameterModel);
+            return result > 0;
+        }
+
     }
 }
