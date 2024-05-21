@@ -111,5 +111,24 @@ namespace Memorandum.WebApplication.Controllers
             });
         }
 
+
+        /// <summary>
+        /// 取得所有代辦事項
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var result = await _memorandumService.GetAllAsync();
+            var resultViewModel = _mapper.Map<IEnumerable<MemorandumResultViewModel>>(result);
+            return Ok(new ResultViewModel<IEnumerable<MemorandumResultViewModel>>
+            {
+                StatuesCode = 200,
+                StatusMessage = "OK",
+                Data = resultViewModel
+            });
+        }
+
     }
 }
