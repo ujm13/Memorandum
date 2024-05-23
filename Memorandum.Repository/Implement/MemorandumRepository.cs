@@ -124,5 +124,24 @@ namespace Memorandum.Repository.Implement
             return result;
         }
 
+        /// <summary>
+        /// 刪除資料
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            var sql = @"Delete  
+                FROM Memorandum
+                WHERE Id = @Id
+                ";
+
+            using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            var parameter = new DynamicParameters();
+            parameter.Add("Id", id);
+            var result = await conn.ExecuteAsync(sql, parameter);
+            return result > 0;
+        }
+
     }
 }
