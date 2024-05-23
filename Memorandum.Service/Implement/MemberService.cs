@@ -37,7 +37,7 @@ namespace Memorandum.Service.Implement
             var parameterModel= _mapper.Map<RegisterMemberParameterModel>(parameterDto);
 
 
-            var success=await _memberRepository.InsterAsync(parameterModel);
+            var success=await _memberRepository.InsertAsync(parameterModel);
             if (!success) 
             {
                 throw new RegisterException("會員註冊資料插入失敗");
