@@ -2,11 +2,6 @@
 {
     public class RegisterMemberParameter
     {
-        //Id應該要自己產外面的用戶或是前端不太會產id給別人產會有重複的問題
-        /// <summary>
-        /// 帳戶ID
-        /// </summary>
-        public Guid Id { get; set; }
 
         /// <summary>
         /// 使用者名稱

@@ -48,7 +48,7 @@ namespace Memorandum.Repository.Implement
                     @CreateTime,
                     @UpdateTime 
                     ) ";
-            using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            await using var conn = new SqlConnection(_dbConnectionOptions.Member);
             var result=await conn.ExecuteAsync(sql, parameterModel);
             return result>0;
 
@@ -71,7 +71,7 @@ namespace Memorandum.Repository.Implement
                     UpdateTime = @UpdateTime
                 WHERE 
                     Id = @Id";
-            using var conn = new SqlConnection(_dbConnectionOptions.Member);
+             await using var conn = new SqlConnection(_dbConnectionOptions.Member);
             var result = await conn.ExecuteAsync(sql, parameterModel);
             return result > 0;
         }
@@ -96,7 +96,7 @@ namespace Memorandum.Repository.Implement
                 WHERE Id = @Id
                 ";
 
-            using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            await using var conn = new SqlConnection(_dbConnectionOptions.Member);
             var parameter = new DynamicParameters();
             parameter.Add("Id", id);
             var result = await conn.QueryFirstOrDefault(sql, parameter);
@@ -119,7 +119,7 @@ namespace Memorandum.Repository.Implement
                                 UpdateTime
                           FROM  Memorandum";
 
-            using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            await using var conn = new SqlConnection(_dbConnectionOptions.Member);
             var result = await conn.QueryAsync<MemorandumDataModel>(sql);
             return result;
         }
@@ -136,7 +136,7 @@ namespace Memorandum.Repository.Implement
                 WHERE Id = @Id
                 ";
 
-            using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            await using var conn = new SqlConnection(_dbConnectionOptions.Member);
             var parameter = new DynamicParameters();
             parameter.Add("Id", id);
             var result = await conn.ExecuteAsync(sql, parameter);

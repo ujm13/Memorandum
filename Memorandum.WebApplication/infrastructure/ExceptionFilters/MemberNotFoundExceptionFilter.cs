@@ -1,4 +1,5 @@
 ﻿using Memorandum.Service.Exceptions;
+using Memorandum.WebApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -11,7 +12,12 @@ namespace Memorandum.WebApplication.infrastructure.ExceptionFilters
         {
             if (context.Exception is MemberNotFoundException)
             {
-                context.Result=new NotFoundObjectResult(context.Exception.Message);
+                context.Result=new NotFoundObjectResult(new ResultViewModel<bool>
+                {
+                    StatuesCode = 404,
+                    StatusMessage = context.Exception.Message,
+                    Data = false
+                });
             }
             return base.OnExceptionAsync(context);
         }

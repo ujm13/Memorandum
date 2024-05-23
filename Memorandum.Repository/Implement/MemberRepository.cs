@@ -29,7 +29,7 @@ namespace Memorandum.Repository.Implement
         /// </summary>
         /// <param name="registerMemberParameter"></param>
         /// <returns></returns>
-        public async Task<bool> InsterAsync(RegisterMemberParameterModel registerMemberParameter)
+        public async Task<bool> InsertAsync(RegisterMemberParameterModel registerMemberParameter)
         {
             var sql = @"insert into  Members (
                     Id,
@@ -50,7 +50,7 @@ namespace Memorandum.Repository.Implement
                     @Birthday 
                     ) 
             ";
-            using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            await using var conn = new SqlConnection(_dbConnectionOptions.Member);
             var result = await conn.ExecuteAsync(sql, registerMemberParameter);
             return result > 0;
         }
@@ -66,7 +66,7 @@ namespace Memorandum.Repository.Implement
                         From Members
                         Where Account=@Account";
 
-            using var conn= new SqlConnection(_dbConnectionOptions.Member);
+            await using var conn= new SqlConnection(_dbConnectionOptions.Member);
             var result=await conn.QueryFirstOrDefaultAsync<LoginMemberDataModel>(sql, loginMemberParameter);
             return result;
         }

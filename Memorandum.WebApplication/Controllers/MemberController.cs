@@ -30,21 +30,13 @@ namespace Memorandum.WebApplication.Controllers
         /// <param name="parameter"></param>
         /// <returns></returns>
         [HttpPost]
-        [RegisterExceptionFilter] 
-        public async Task<IActionResult> RegisterAsync(RegisterMemberParameter parameter)
+        [RegisterExceptionFilter]
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterMemberParameter parameter)
         {
             var parameterDto = _mapper.Map<RegisterMemberParameterDto>(parameter);
             var success = await _memberService.RegisterAsync(parameterDto);
-            if (!success)
-            {
-                return BadRequest(
-                    new ResultViewModel<bool>
-                    {
-                        StatuesCode = 400,
-                        StatusMessage = "註冊會員失敗",
-                        Data= success
-                    });
-            }
             return Ok(new ResultViewModel<bool>
             {
                 StatuesCode = 200,
@@ -61,21 +53,14 @@ namespace Memorandum.WebApplication.Controllers
         [HttpGet]
         [LoginFailedExceptionFilter]
         [MemberNotFoundExceptionFilter]
-        public async Task<IActionResult> LoginAsync(LoginMemberParameter parameter) 
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> LoginAsync([FromBody]LoginMemberParameter parameter) 
         {
             var parameterDto = _mapper.Map<LoginMemberParameterDto>(parameter);
             var resultDto = await _memberService.LoginAsync(parameterDto);
             var resultViewModel = _mapper.Map<LoginMemberResultViewModel>(resultDto);
-            if (resultDto is null)
-            {
-                return BadRequest(new ResultViewModel<LoginMemberResultViewModel>
-                {
-                    StatuesCode = 400,
-                    StatusMessage = "會員登入失敗",
-                    Data = resultViewModel
-                });
-            }
-
             return Ok(new ResultViewModel<LoginMemberResultViewModel>
             {
                 StatuesCode = 200,

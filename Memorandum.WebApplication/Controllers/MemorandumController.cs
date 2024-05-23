@@ -30,21 +30,13 @@ namespace Memorandum.WebApplication.Controllers
         /// <returns></returns>
         [HttpPost("Create")]
         [MemorandumExceptionFilter]
-        public async Task<IActionResult> CreateAsync(CreateMemorandumParameter parameter)
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateAsync([FromBody]CreateMemorandumParameter parameter)
         {
             var parameterDto = _mapper.Map<CreateMemorandumParameterDto>(parameter);
-            var success = await _memorandumService.CreateAsync(parameterDto);
-            if (!success)
-            {
-                return BadRequest(
-                    new ResultViewModel<bool>
-                    {
-                        StatuesCode = 400,
-                        StatusMessage = "新增代辦事項失敗",
-                        Data= success
-                    });
-            }
-
+            var success = await _memorandumService.CreateAsync(parameterDto);  
+            
             return Ok(new ResultViewModel<bool>
             {
                 StatuesCode = 200,
@@ -58,21 +50,14 @@ namespace Memorandum.WebApplication.Controllers
         /// </summary>
         /// <param name="parameter">The parameter.</param>
         /// <returns></returns>
-        [HttpPost("Update")]
+        [HttpPatch("Update")]
         [MemorandumExceptionFilter]
-        public async Task<IActionResult> UpdateAsync(UpdateMemorandumParameter parameter)
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateAsync([FromBody] UpdateMemorandumParameter parameter)
         {
             var parameterDto = _mapper.Map<UpdateMemorandumParameterDto>(parameter);
             var success = await _memorandumService.UpdateAsync(parameterDto);
-            if (!success)
-            {
-                return BadRequest(new ResultViewModel<bool>
-                {
-                    StatuesCode = 400,
-                    StatusMessage = "修改代辦事項失敗",
-                    Data = success
-                });
-            }
 
             return Ok(new ResultViewModel<bool>
             {
@@ -87,21 +72,14 @@ namespace Memorandum.WebApplication.Controllers
         /// </summary>
         /// <param name="parameter">The parameter.</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("{id}")]
         [MemorandumNotFountExceptionFilter]
-        public async Task<IActionResult> GetDetailAsync(Guid id)
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetDetailAsync([FromRoute]Guid id)
         {
             var result = await _memorandumService.GetDetailAsync(id);
             var resultViewModel = _mapper.Map<MemorandumResultViewModel>(result);
-            if (result is null)
-            {
-                return BadRequest(new ResultViewModel<MemorandumResultViewModel>
-                {
-                    StatuesCode = 400,
-                    StatusMessage = "取得代辦事項明細失敗",
-                    Data = resultViewModel
-                });
-            }
 
             return Ok(new ResultViewModel<MemorandumResultViewModel>
             {
@@ -135,10 +113,13 @@ namespace Memorandum.WebApplication.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [MemorandumExceptionFilter]
         [MemorandumNotFountExceptionFilter]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
         {
             var success = await _memorandumService.DeleteAsync(id);
             return Ok(new ResultViewModel<bool>
@@ -151,4 +132,4 @@ namespace Memorandum.WebApplication.Controllers
     }
 
 }
-}
+
