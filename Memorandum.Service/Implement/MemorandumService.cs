@@ -94,5 +94,27 @@ namespace Memorandum.Service.Implement
 
             return resultModelDto;
         }
+
+
+        /// <summary>
+        /// 刪除資料
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new MemorandumNotFountException($"id {id} is empty");
+            }
+
+            var success = await _memorandumRepository.DeleteAsync(id);
+
+            if (!success)
+            {
+                throw new MemorandumException("刪除代辦事項失敗");
+            }
+            return success;
+        }
     }
 }

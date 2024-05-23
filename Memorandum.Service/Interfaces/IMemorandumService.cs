@@ -35,5 +35,12 @@ namespace Memorandum.Service.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<MemorandumResultModelDto>> GetAllAsync();
+
+        /// <summary>
+        /// 刪除資料
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        Task<bool> DeleteAsync(Guid id);
     }
 }
