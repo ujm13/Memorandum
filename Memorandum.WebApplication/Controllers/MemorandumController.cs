@@ -130,5 +130,25 @@ namespace Memorandum.WebApplication.Controllers
             });
         }
 
+        /// <summary>
+        /// 刪除代辦事項
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        [HttpDelete]
+        [MemorandumExceptionFilter]
+        [MemorandumNotFountExceptionFilter]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            var success = await _memorandumService.DeleteAsync(id);
+            return Ok(new ResultViewModel<bool>
+            {
+                StatuesCode = 200,
+                StatusMessage = "刪除代辦事項成功",
+                Data = success
+            });
+        }
     }
+
+}
 }
