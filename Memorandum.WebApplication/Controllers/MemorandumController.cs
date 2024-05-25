@@ -50,14 +50,14 @@ namespace Memorandum.WebApplication.Controllers
         /// </summary>
         /// <param name="parameter">The parameter.</param>
         /// <returns></returns>
-        [HttpPatch("Update")]
+        [HttpPatch("{id}")]
         [MemorandumExceptionFilter]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateAsync([FromBody] UpdateMemorandumParameter parameter)
+        public async Task<IActionResult> UpdateAsync([FromRoute]Guid id,[FromBody] UpdateMemorandumParameter parameter)
         {
             var parameterDto = _mapper.Map<UpdateMemorandumParameterDto>(parameter);
-            var success = await _memorandumService.UpdateAsync(parameterDto);
+            var success = await _memorandumService.UpdateAsync(id,parameterDto);
 
             return Ok(new ResultViewModel<bool>
             {

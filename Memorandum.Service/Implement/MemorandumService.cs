@@ -45,9 +45,10 @@ namespace Memorandum.Service.Implement
         /// </summary>
         /// <param name="parameterModel">The parameter model.</param>
         /// <returns></returns>
-        public async Task<bool> UpdateAsync(UpdateMemorandumParameterDto parameterDto)
+        public async Task<bool> UpdateAsync(Guid id,UpdateMemorandumParameterDto parameterDto)
         {
             var parameterModel = _mapper.Map<UpdateMemorandumParameterModel>(parameterDto);
+            parameterModel.Id = id;
             var success = await _memorandumRepository.UpdateAsync(parameterModel);
             if (!success)  
             {

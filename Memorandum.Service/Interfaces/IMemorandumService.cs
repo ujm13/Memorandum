@@ -21,7 +21,7 @@ namespace Memorandum.Service.Interfaces
         /// </summary>
         /// <param name="parameterModel">The parameter model.</param>
         /// <returns></returns>
-        Task<bool> UpdateAsync(UpdateMemorandumParameterDto parameterDto);
+        Task<bool> UpdateAsync(Guid id,UpdateMemorandumParameterDto parameterDto);
 
         /// <summary>
         /// 取得明細
