@@ -11,6 +11,7 @@ using Memorandum.Service.Implement;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParameterDto;
 using NSubstitute;
+using NSubstitute.ReturnsExtensions;
 using Xunit;
 
 namespace Memorandum.ServiceTest
@@ -175,6 +176,21 @@ namespace Memorandum.ServiceTest
 
             //Assert
             await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} is empty");
+        }
+
+        [Fact]
+        public async Task GetDetailAsyncTest_輸入查詢id_查詢結果為Null_回傳MemorandumNotFountException()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            _memorandumRepository.GetDetailAsync(Arg.Any<Guid>()).ReturnsNull();
+
+            //Actual
+            Func<Task> act = () => _memorandumService.GetDetailAsync(id);
+
+            //Assert
+            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} not found");
+
         }
     }
 }
