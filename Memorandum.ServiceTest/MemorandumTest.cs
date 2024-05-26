@@ -271,5 +271,19 @@ namespace Memorandum.ServiceTest
             //Assert
             await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} is empty");
         }
+
+        [Fact]
+        public async Task DeleteAsyncTest_輸入要刪除的id_刪除代辦事項失敗_回傳MemorandumException()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            _memorandumRepository.DeleteAsync(Arg.Any<Guid>()).Returns(false);
+
+            //Actual
+            Func<Task> act = () => _memorandumService.DeleteAsync(id);
+
+            //Assert
+            await act.Should().ThrowAsync<MemorandumException>().WithMessage("刪除代辦事項失敗");
+        }
     }
 }
