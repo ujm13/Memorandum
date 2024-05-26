@@ -12,6 +12,7 @@ using Memorandum.Service.Models.ParamaterModelDto;
 using Memorandum.Service.Models.ParameterDto;
 using Memorandum.Service.Models.ResultModelDto;
 using NSubstitute;
+using NSubstitute.ReturnsExtensions;
 
 namespace Member.ServiceTest
 {
@@ -114,6 +115,25 @@ namespace Member.ServiceTest
                 UserName = "使用者名稱",
                 Email = "hgujgy@gmail.com"
             });
+        }
+
+        [Fact]
+        public async Task LoginAsync_輸入帳號密碼_查詢結果無此會員_回傳MemberNotFoundException()
+        {
+            //Arrange
+            var parameterDto = new LoginMemberParameterDto
+            {
+                Account = "qqq123",
+                Password = "00000"
+            };
+
+            _memberRepository.GetAsync(Arg.Any<LoginMemberParameterModel>()).ReturnsNull();
+
+            //actual
+            Func<Task> act = () => _memberService.LoginAsync(parameterDto);
+
+            //assert
+            await act.Should().ThrowAsync<MemberNotFoundException>().WithMessage("查無此會員");
         }
     }
 }
