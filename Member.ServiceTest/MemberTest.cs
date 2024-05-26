@@ -13,6 +13,7 @@ using Memorandum.Service.Models.ParameterDto;
 using Memorandum.Service.Models.ResultModelDto;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
+using Xunit;
 
 namespace Member.ServiceTest
 {

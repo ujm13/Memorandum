@@ -39,7 +39,7 @@ namespace Memorandum.ServiceTest
         {
             //Arrange           
             var parameterModelDto = new CreateMemorandumParameterDto
-            {                
+            {
                 Title = "代辦事項名稱",
                 Description = "代辦事項內容敘述",
                 DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
@@ -62,7 +62,7 @@ namespace Memorandum.ServiceTest
         {
             //Arrange
             var parameterModelDto = new CreateMemorandumParameterDto
-            {               
+            {
                 Title = "代辦事項名稱",
                 Description = "代辦事項內容敘述",
                 DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
@@ -123,7 +123,7 @@ namespace Memorandum.ServiceTest
             _memorandumRepository.UpdateAsync(Arg.Any<UpdateMemorandumParameterModel>()).Returns(false);
 
             //Actual
-            Func<Task> act = () => _memorandumService.UpdateAsync(id,parameterModelDto);
+            Func<Task> act = () => _memorandumService.UpdateAsync(id, parameterModelDto);
 
             //Assert
             await act.Should().ThrowAsync<MemorandumException>().WithMessage("更新代辦事項失敗");
@@ -205,7 +205,7 @@ namespace Memorandum.ServiceTest
             //Arrange
             var id = Guid.NewGuid();
             var nowDate = DateTime.Now;
-            _memorandumRepository.GetAllAsync().Returns(new List<MemorandumDataModel> 
+            _memorandumRepository.GetAllAsync().Returns(new List<MemorandumDataModel>
             {
                 new MemorandumDataModel
                 {
@@ -238,6 +238,24 @@ namespace Memorandum.ServiceTest
                     UpdateTime = nowDate
                 }
             });
+        }
+
+        /// <summary>
+        /// 刪除代辦事項測試
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        public async Task DeleteAsyncTest_輸入要刪除的id_刪除成功回傳true()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            _memorandumRepository.DeleteAsync(Arg.Any<Guid>()).Returns(true);
+
+            //Actual
+            var actual = await _memorandumService.DeleteAsync(id);
+
+            //Assert
+            actual.Should().BeTrue();
         }
     }
 }
