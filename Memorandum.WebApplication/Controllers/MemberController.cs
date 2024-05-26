@@ -5,6 +5,7 @@ using Memorandum.Service.Models.ParamaterModelDto;
 using Memorandum.Service.Models.ParameterDto;
 using Memorandum.WebApplication.infrastructure.ExceptionFilters;
 using Memorandum.WebApplication.Models.Parameters;
+using Memorandum.WebApplication.Models.Parameters.Validator;
 using Memorandum.WebApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +36,22 @@ namespace Memorandum.WebApplication.Controllers
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterMemberParameter parameter)
         {
+            var validator = new RegisterMemberParameterValidator();
+            var validationResult = await validator.ValidateAsync(parameter);
+
+            if (validationResult.IsValid is false)
+            {
+                var errorMessages = validationResult.Errors.Select(e => e.ErrorMessage);
+                var resultMessage = string.Join(",", errorMessages);
+                return BadRequest(new ResultViewModel<string>
+                {
+                    StatuesCode = 400,
+                    StatusMessage = resultMessage,
+                    Data = string.Empty
+                }); // 直接回傳 400 + 錯誤訊息
+            }
+
+
             var parameterDto = _mapper.Map<RegisterMemberParameterDto>(parameter);
             var success = await _memberService.RegisterAsync(parameterDto);
             return Ok(new ResultViewModel<bool>

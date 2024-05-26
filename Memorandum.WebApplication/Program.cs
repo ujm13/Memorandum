@@ -31,18 +31,14 @@ builder.Services.AddSwaggerGen(c =>
     {
         c.IncludeXmlComments(xmlFile);//swaggerÅªxmlÀÉ
     }
+
+    c.DocumentFilter<SwaggerEnumDocumentFilter>();
 });
 
 builder.Services.AddOptionsDependency()
                 .AddDependencyInjection();
 
-builder.Services.AddSwaggerGen(c =>
-{
-    c.DocumentFilter<SwaggerEnumDocumentFilter>();
-});
-
 builder.Services.AddHealthChecks();
-
 
 #region Version
 builder.Services.AddApiVersioning(option =>
