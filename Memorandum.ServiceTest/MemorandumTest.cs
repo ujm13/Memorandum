@@ -163,5 +163,18 @@ namespace Memorandum.ServiceTest
                 UpdateTime = nowDate
             });
         }
+
+        [Fact]
+        public async Task GetDetailAsyncTest_輸入查詢id_且id為預設值_回傳MemorandumNotFountException()
+        {
+            //Arrange
+            var id = Guid.Empty;
+
+            //Actual
+            Func<Task> act = () => _memorandumService.GetDetailAsync(id);
+
+            //Assert
+            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} is empty");
+        }
     }
 }
