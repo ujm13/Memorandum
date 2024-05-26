@@ -89,7 +89,7 @@ namespace Member.ServiceTest
         /// 會員登入測試
         /// </summary>
         [Fact]
-        public async Task LoginAsync_輸入帳號密碼_登入成功回傳LoginMemberResultDto()
+        public async Task LoginAsyncTest_輸入帳號密碼_登入成功回傳LoginMemberResultDto()
         {
             //Arrange
             var parameterDto = new LoginMemberParameterDto
@@ -119,7 +119,7 @@ namespace Member.ServiceTest
         }
 
         [Fact]
-        public async Task LoginAsync_輸入帳號密碼_查詢結果無此會員_回傳MemberNotFoundException()
+        public async Task LoginAsyncTest_輸入帳號密碼_查詢結果無此會員_回傳MemberNotFoundException()
         {
             //Arrange
             var parameterDto = new LoginMemberParameterDto
@@ -138,7 +138,7 @@ namespace Member.ServiceTest
         }
 
         [Fact]
-        public async Task LoginAsync_輸入帳號密碼_會員密碼錯誤_回傳LoginFailedException()
+        public async Task LoginAsyncTest_輸入帳號密碼_會員密碼錯誤_回傳LoginFailedException()
         {
             //Arrange
             var parameterDto = new LoginMemberParameterDto
