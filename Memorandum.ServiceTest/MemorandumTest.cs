@@ -12,6 +12,7 @@ using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParameterDto;
 using Memorandum.Service.Models.ResultModelDto;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NSubstitute.ReturnsExtensions;
 using Xunit;
 
@@ -256,6 +257,19 @@ namespace Memorandum.ServiceTest
 
             //Assert
             actual.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task DeleteAsyncTest_輸入要刪除的id_id為預設值_回傳MemorandumNotFountException()
+        {
+            //Arrange
+            var id = Guid.Empty;
+
+            //Actual
+            Func<Task> act =()=> _memorandumService.DeleteAsync(id);
+
+            //Assert
+            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} is empty");
         }
     }
 }
