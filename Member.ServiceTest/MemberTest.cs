@@ -135,5 +135,30 @@ namespace Member.ServiceTest
             //assert
             await act.Should().ThrowAsync<MemberNotFoundException>().WithMessage("查無此會員");
         }
+
+        [Fact]
+        public async Task LoginAsync_輸入帳號密碼_會員密碼錯誤_回傳LoginFailedException()
+        {
+            //Arrange
+            var parameterDto = new LoginMemberParameterDto
+            {
+                Account = "qqq123",
+                Password = "0000o"
+            };
+
+            _memberRepository.GetAsync(Arg.Any<LoginMemberParameterModel>()).Returns(new LoginMemberDataModel
+            {
+                Account = "qqq123",
+                Password = "00000",
+                UserName = "使用者名稱",
+                Email = "hgujgy@gmail.com"
+            });
+
+            //actual
+            Func<Task> act = () => _memberService.LoginAsync(parameterDto);
+
+            //assert 
+            await act.Should().ThrowAsync<LoginFailedException>().WithMessage("會員密碼錯誤");
+        }
     }
 }
