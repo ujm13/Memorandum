@@ -76,5 +76,31 @@ namespace Memorandum.ServiceTest
             //Assert
             await act.Should().ThrowAsync<MemorandumException>().WithMessage("新增代辦事項失敗");
         }
+
+        /// <summary>
+        /// 更新代辦事項測試
+        /// </summary>
+        [Fact]
+        public async Task UpdateAsyncTest_輸入更新資訊_更新成功回傳true()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var parameterModelDto = new UpdateMemorandumParameterDto
+            {
+                Title = "更新代辦事項名稱",
+                Description = "更新代辦事項內容敘述",
+                DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
+                Status = StatusEnum.completed,
+                Priority = PriorityEnum.Medium,
+                UpdateTime = DateTime.Now
+            };
+            _memorandumRepository.UpdateAsync(Arg.Any<UpdateMemorandumParameterModel>()).Returns(true);
+
+            //Actual
+            var actual = await _memorandumService.UpdateAsync(id, parameterModelDto);
+
+            //Assert
+            actual.Should().BeTrue();
+        }
     }
 }
