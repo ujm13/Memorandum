@@ -10,6 +10,7 @@ using Memorandum.Service.Exceptions;
 using Memorandum.Service.Implement;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParameterDto;
+using Memorandum.Service.Models.ResultModelDto;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using Xunit;
@@ -153,7 +154,7 @@ namespace Memorandum.ServiceTest
             var actual = await _memorandumService.GetDetailAsync(id);
 
             //Assert
-            actual.Should().BeEquivalentTo(new MemorandumDataModel
+            actual.Should().BeEquivalentTo(new MemorandumResultModelDto
             {
                 Id = id,
                 Title = "代辦事項名稱",
@@ -191,6 +192,52 @@ namespace Memorandum.ServiceTest
             //Assert
             await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} not found");
 
+        }
+
+
+        /// <summary>
+        /// 取得所有待辦事項測試
+        /// </summary>
+        /// <returns></returns>
+        [Fact]
+        public async Task GetAllAsyncTest_查詢所有代辦事項_查詢成功回傳所有資料()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var nowDate = DateTime.Now;
+            _memorandumRepository.GetAllAsync().Returns(new List<MemorandumDataModel> 
+            {
+                new MemorandumDataModel
+                {
+                    Id = id,
+                    Title = "代辦事項名稱",
+                    Description = "代辦事項內容敘述",
+                    DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
+                    Status = StatusEnum.completed,
+                    Priority = PriorityEnum.Medium,
+                    CreateTime=new DateTime(2024, 05, 26, 10, 00, 00),
+                    UpdateTime = nowDate
+                }
+            });
+
+            //Actual
+            var actual = await _memorandumService.GetAllAsync();
+
+            //Assert
+            actual.Should().BeEquivalentTo(new List<MemorandumResultModelDto>
+            {
+                new MemorandumResultModelDto
+                {
+                    Id = id,
+                    Title = "代辦事項名稱",
+                    Description = "代辦事項內容敘述",
+                    DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
+                    Status = StatusEnum.completed,
+                    Priority = PriorityEnum.Medium,
+                    CreateTime=new DateTime(2024, 05, 26, 10, 00, 00),
+                    UpdateTime = nowDate
+                }
+            });
         }
     }
 }
