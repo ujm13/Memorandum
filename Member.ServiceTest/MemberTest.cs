@@ -3,11 +3,14 @@ using Mapster;
 using MapsterMapper;
 using Memorandum.Repository.infrastructure.MapperRegisters;
 using Memorandum.Repository.Interfaces;
+using Memorandum.Repository.Models.DataModels;
 using Memorandum.Repository.Models.ParamaterModels;
 using Memorandum.Service.Exceptions;
 using Memorandum.Service.Implement;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParamaterModelDto;
+using Memorandum.Service.Models.ParameterDto;
+using Memorandum.Service.Models.ResultModelDto;
 using NSubstitute;
 
 namespace Member.ServiceTest
@@ -76,6 +79,41 @@ namespace Member.ServiceTest
 
             //Assert
             await act.Should().ThrowAsync<RegisterException>().WithMessage("會員註冊資料插入失敗");
+        }
+
+
+
+        /// <summary>
+        /// 會員登入測試
+        /// </summary>
+        [Fact]
+        public async Task LoginAsync_輸入帳號密碼_登入成功回傳LoginMemberResultDto()
+        {
+            //Arrange
+            var parameterDto = new LoginMemberParameterDto
+            {
+                Account = "qqq123",
+                Password = "00000"
+            };
+
+            _memberRepository.GetAsync(Arg.Any<LoginMemberParameterModel>()).Returns(new LoginMemberDataModel
+            {
+                Account = "qqq123",
+                Password = "00000",
+                UserName = "使用者名稱",
+                Email = "hgujgy@gmail.com"
+            });
+
+            //Actual
+            var actual = await _memberService.LoginAsync(parameterDto);
+
+            //Assert
+            actual.Should().BeEquivalentTo(new LoginMemberResultDto
+            {
+                Account = "qqq123",
+                UserName = "使用者名稱",
+                Email = "hgujgy@gmail.com"
+            });
         }
     }
 }
