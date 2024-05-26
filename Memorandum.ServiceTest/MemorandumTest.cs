@@ -5,6 +5,7 @@ using Memorandum.Common.Enums;
 using Memorandum.Repository.infrastructure.MapperRegisters;
 using Memorandum.Repository.Interfaces;
 using Memorandum.Repository.Models.ParamaterModels;
+using Memorandum.Service.Exceptions;
 using Memorandum.Service.Implement;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParameterDto;
@@ -50,6 +51,30 @@ namespace Memorandum.ServiceTest
 
             //Assert
             actual.Should().BeTrue();
+        }
+
+
+        [Fact]
+        public async Task CreateAsyncTest_輸入待辦事項資訊_新增代辦事項失敗_回傳MemorandumException()
+        {
+            //Arrange
+            var parameterModelDto = new CreateMemorandumParameterDto
+            {               
+                Title = "代辦事項名稱",
+                Description = "代辦事項內容敘述",
+                DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
+                Status = StatusEnum.completed,
+                Priority = PriorityEnum.Medium,
+                CreateTime = DateTime.Now,
+                UpdateTime = DateTime.Now
+            };
+            _memorandumRepository.InsertAsync(Arg.Any<InsertMemorandumParameterModel>()).Returns(false);
+
+            //Actual
+            Func<Task> act = () => _memorandumService.CreateAsync(parameterModelDto);
+
+            //Assert
+            await act.Should().ThrowAsync<MemorandumException>().WithMessage("新增代辦事項失敗");
         }
     }
 }
