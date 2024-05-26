@@ -4,6 +4,7 @@ using MapsterMapper;
 using Memorandum.Common.Enums;
 using Memorandum.Repository.infrastructure.MapperRegisters;
 using Memorandum.Repository.Interfaces;
+using Memorandum.Repository.Models.DataModels;
 using Memorandum.Repository.Models.ParamaterModels;
 using Memorandum.Service.Exceptions;
 using Memorandum.Service.Implement;
@@ -124,6 +125,43 @@ namespace Memorandum.ServiceTest
 
             //Assert
             await act.Should().ThrowAsync<MemorandumException>().WithMessage("更新代辦事項失敗");
+        }
+
+        /// <summary>
+        /// 取得明細資料測試
+        /// </summary>
+        [Fact]
+        public async Task GetDetailAsyncTest_輸入查詢id_查詢成功回傳明細資料()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+
+            var nowDate = DateTime.Now;
+            _memorandumRepository.GetDetailAsync(Arg.Any<Guid>()).Returns(new MemorandumDataModel
+            {
+                Id = id,
+                Title = "代辦事項名稱",
+                Description = "代辦事項內容敘述",
+                DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
+                Status = StatusEnum.completed,
+                Priority = PriorityEnum.Medium,
+                UpdateTime = nowDate
+            });
+
+            //Actual
+            var actual = await _memorandumService.GetDetailAsync(id);
+
+            //Assert
+            actual.Should().BeEquivalentTo(new MemorandumDataModel
+            {
+                Id = id,
+                Title = "代辦事項名稱",
+                Description = "代辦事項內容敘述",
+                DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
+                Status = StatusEnum.completed,
+                Priority = PriorityEnum.Medium,
+                UpdateTime = nowDate
+            });
         }
     }
 }
