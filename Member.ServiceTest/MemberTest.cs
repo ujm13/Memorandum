@@ -4,6 +4,7 @@ using MapsterMapper;
 using Memorandum.Repository.infrastructure.MapperRegisters;
 using Memorandum.Repository.Interfaces;
 using Memorandum.Repository.Models.ParamaterModels;
+using Memorandum.Service.Exceptions;
 using Memorandum.Service.Implement;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParamaterModelDto;
@@ -51,6 +52,30 @@ namespace Member.ServiceTest
 
             //Assert
             actual.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task RegisterAsyncTest_輸入會員資訊_且會員資料插入失敗_拋出RegisterException()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var parameterDto = new RegisterMemberParameterDto
+            {
+                Id = id,
+                UserName = "使用者名稱",
+                Account = "qqq123",
+                Password = "00000",
+                Email = "hgujgy@gmail.com",
+                Phone = "0912345678",
+                Birthday = new DateTime(1999, 01, 01)
+            };
+            _memberRepository.InsertAsync(Arg.Any<RegisterMemberParameterModel>()).Returns(false);
+
+            //Actual
+            Func<Task> act = () => _memberService.RegisterAsync(parameterDto);
+
+            //Assert
+            await act.Should().ThrowAsync<RegisterException>().WithMessage("會員註冊資料插入失敗");
         }
     }
 }
