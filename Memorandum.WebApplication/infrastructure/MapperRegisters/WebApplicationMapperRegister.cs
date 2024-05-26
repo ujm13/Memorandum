@@ -15,8 +15,7 @@ namespace Memorandum.WebApplication.infrastructure.MapperRegisters
             config.NewConfig<LoginMemberParameter, LoginMemberParameterDto>();
             config.NewConfig<CreateMemorandumParameter, CreateMemorandumParameterDto>()
                 .Map(a => a.CreateTime, b => DateTime.Now)
-                .Map(a => a.UpdateTime, b => DateTime.Now)
-                .Map(a=>a.Id,b=>Guid.NewGuid());
+                .Map(a => a.UpdateTime, b => DateTime.Now);
             config.NewConfig<UpdateMemorandumParameter, UpdateMemorandumParameterDto>()
                 .Map(a => a.UpdateTime, b => DateTime.Now);
             config.NewConfig<MemorandumResultModelDto, MemorandumResultViewModel>();

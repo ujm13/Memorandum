@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Mapster.Models;
 using Memorandum.Common.Options;
 using Memorandum.Repository.Interfaces;
 using Memorandum.Repository.Models.DataModels;
@@ -48,11 +49,36 @@ namespace Memorandum.Repository.Implement
                     @CreateTime,
                     @UpdateTime 
                     ) ";
+            var id=Guid.NewGuid();
+            var cheakId = await CheakIdAsync(id);
+            while (cheakId != 0) 
+            {
+                id = Guid.NewGuid();
+                cheakId = await CheakIdAsync(id);
+            }
+            parameterModel.Id = id;
             await using var conn = new SqlConnection(_dbConnectionOptions.Member);
             var result=await conn.ExecuteAsync(sql, parameterModel);
             return result>0;
 
         }
+
+
+        /// <summary>
+        /// 查詢Id是否存在
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private async Task<int> CheakIdAsync(Guid id) 
+        {
+            var sql = @"Select count(*)
+                       From Memorandum
+                       Where Id=@id";
+            await using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            var result = await conn.ExecuteScalarAsync<int>(sql, id);
+            return result;
+        }
+
 
         /// <summary>
         /// 修改代辦事項
