@@ -2,6 +2,7 @@
 using Memorandum.Repository.Interfaces;
 using Memorandum.Repository.Models.ParamaterModels;
 using Memorandum.Service.Exceptions;
+using Memorandum.Service.infrastructure.Helpers;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParamaterModelDto;
 using Memorandum.Service.Models.ParameterDto;
@@ -36,7 +37,7 @@ namespace Memorandum.Service.Implement
         {
             var parameterModel= _mapper.Map<RegisterMemberParameterModel>(parameterDto);
 
-
+            parameterModel.Password = Sha256EncryptHelper.HashPasswordSha256(parameterModel.Password);
             var success=await _memberRepository.InsertAsync(parameterModel);
             if (!success) 
             {
@@ -61,7 +62,9 @@ namespace Memorandum.Service.Implement
                 throw new MemberNotFoundException("查無此會員");
             }
 
-            if (member.Password != loginMemberParameterDto.Password) 
+            var encryptPassword = Sha256EncryptHelper.HashPasswordSha256(loginMemberParameterDto.Password);
+
+            if (member.Password != encryptPassword) 
             {
                 throw new LoginFailedException("會員密碼錯誤");
             }
