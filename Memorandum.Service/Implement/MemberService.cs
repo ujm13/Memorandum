@@ -37,7 +37,7 @@ namespace Memorandum.Service.Implement
         {
             var parameterModel= _mapper.Map<RegisterMemberParameterModel>(parameterDto);
 
-            parameterModel.Password = Sha256EncryptHelper.HashPasswordSha256(parameterModel.Password);
+            parameterModel.Password = EncryptHelper.HashPasswordSha256(parameterModel.Password);
             var success=await _memberRepository.InsertAsync(parameterModel);
             if (!success) 
             {
@@ -62,7 +62,7 @@ namespace Memorandum.Service.Implement
                 throw new MemberNotFoundException("查無此會員");
             }
 
-            var encryptPassword = Sha256EncryptHelper.HashPasswordSha256(loginMemberParameterDto.Password);
+            var encryptPassword = EncryptHelper.HashPasswordSha256(loginMemberParameterDto.Password);
 
             if (member.Password != encryptPassword) 
             {
