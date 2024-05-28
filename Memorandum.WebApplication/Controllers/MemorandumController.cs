@@ -28,7 +28,7 @@ namespace Memorandum.WebApplication.Controllers
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns></returns>
-        [HttpPost("Create")]
+        [HttpPost]
         [MemorandumExceptionFilter]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
