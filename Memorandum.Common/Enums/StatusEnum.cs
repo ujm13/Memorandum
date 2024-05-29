@@ -10,7 +10,7 @@ namespace Memorandum.Common.Enums
     public enum StatusEnum
     {
         [Description("已完成")]
-        completed,
+        Completed,
         [Description("進行中")]
         Ongoing,
         [Description("未開始")]

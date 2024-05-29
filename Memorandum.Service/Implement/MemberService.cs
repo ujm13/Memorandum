@@ -19,11 +19,13 @@ namespace Memorandum.Service.Implement
     {
         private readonly IMemberRepository _memberRepository;
         private readonly IMapper _mapper;
+        private readonly IEncryptHelper _encryptHelper;
 
-        public MemberService(IMemberRepository memberRepository, IMapper mapper)
+        public MemberService(IMemberRepository memberRepository, IMapper mapper, IEncryptHelper encryptHelper)
         {
             _memberRepository = memberRepository;
             _mapper = mapper;
+            _encryptHelper = encryptHelper;
         }
 
 
@@ -37,7 +39,7 @@ namespace Memorandum.Service.Implement
         {
             var parameterModel= _mapper.Map<RegisterMemberParameterModel>(parameterDto);
 
-            parameterModel.Password = EncryptHelper.HashPasswordSha256(parameterModel.Password);
+            parameterModel.Password = _encryptHelper.Sha256EncryptHelper(parameterModel.Password);
             var success=await _memberRepository.InsertAsync(parameterModel);
             if (!success) 
             {
@@ -62,7 +64,7 @@ namespace Memorandum.Service.Implement
                 throw new MemberNotFoundException("查無此會員");
             }
 
-            var encryptPassword = EncryptHelper.HashPasswordSha256(loginMemberParameterDto.Password);
+            var encryptPassword = _encryptHelper.Sha256EncryptHelper(loginMemberParameterDto.Password);
 
             if (member.Password != encryptPassword) 
             {
