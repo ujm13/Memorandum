@@ -64,6 +64,15 @@ namespace Memorandum.Service.Implement
         /// <returns></returns>
         public async Task<bool> UpdateAsync(Guid id,UpdateMemorandumParameterDto parameterDto)
         {
+            if (id == Guid.Empty)
+            {
+                throw new MemorandumNotFountException($"id {id} is empty");
+            }
+            var isExistId = await _memorandumRepository.IsExistIdAsync(id);
+            if (!isExistId) 
+            {
+                throw new MemorandumNotFountException($"id {id} not found");
+            }
             var parameterModel = _mapper.Map<UpdateMemorandumParameterModel>(parameterDto);
             parameterModel.Id = id;
             var success = await _memorandumRepository.UpdateAsync(parameterModel);
@@ -124,6 +133,12 @@ namespace Memorandum.Service.Implement
             if (id == Guid.Empty)
             {
                 throw new MemorandumNotFountException($"id {id} is empty");
+            }
+
+            var isExistId = await _memorandumRepository.IsExistIdAsync(id);
+            if (!isExistId)
+            {
+                throw new MemorandumNotFountException($"id {id} not found");
             }
 
             var success = await _memorandumRepository.DeleteAsync(id);

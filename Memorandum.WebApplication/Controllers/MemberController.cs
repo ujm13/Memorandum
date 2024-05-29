@@ -67,7 +67,7 @@ namespace Memorandum.WebApplication.Controllers
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("Login")]
         [LoginFailedExceptionFilter]
         [MemberNotFoundExceptionFilter]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]

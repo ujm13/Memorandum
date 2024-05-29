@@ -52,6 +52,7 @@ namespace Memorandum.WebApplication.Controllers
         /// <returns></returns>
         [HttpPatch("{id}")]
         [MemorandumExceptionFilter]
+        [MemorandumNotFountExceptionFilter]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromRoute]Guid id,[FromBody] UpdateMemorandumParameter parameter)
