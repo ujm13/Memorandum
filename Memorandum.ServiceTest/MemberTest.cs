@@ -7,6 +7,7 @@ using Memorandum.Repository.Models.DataModels;
 using Memorandum.Repository.Models.ParamaterModels;
 using Memorandum.Service.Exceptions;
 using Memorandum.Service.Implement;
+using Memorandum.Service.infrastructure.Helpers;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParamaterModelDto;
 using Memorandum.Service.Models.ParameterDto;
@@ -22,14 +23,16 @@ namespace Member.ServiceTest
         private readonly IMemberRepository _memberRepository;
         private readonly IMemberService _memberService;
         private readonly IMapper _mapper;
+        private readonly IEncryptHelper _encryptHelper;
 
         public MemberTest()
         {
             _memberRepository = Substitute.For<IMemberRepository>();
+            _encryptHelper = Substitute.For<IEncryptHelper>();
             var config = new TypeAdapterConfig();
             config.Scan(typeof(ServiceMapperRegister).Assembly);
             _mapper = new Mapper(config);
-            _memberService = new MemberService(_memberRepository, _mapper);
+            _memberService = new MemberService(_memberRepository, _mapper, _encryptHelper);
         }
 
         /// <summary>
@@ -50,6 +53,7 @@ namespace Member.ServiceTest
                 Phone = "0912345678",
                 Birthday = new DateTime(1999, 01, 01)
             };
+            _encryptHelper.Sha256EncryptHelper(Arg.Any<string>()).Returns("456fdg465rgegf");
             _memberRepository.InsertAsync(Arg.Any<RegisterMemberParameterModel>()).Returns(true);
 
             //Actual
@@ -97,11 +101,11 @@ namespace Member.ServiceTest
                 Account = "qqq123",
                 Password = "00000"
             };
-
+            _encryptHelper.Sha256EncryptHelper(Arg.Any<string>()).Returns("456fdg465rgegf");
             _memberRepository.GetAsync(Arg.Any<LoginMemberParameterModel>()).Returns(new LoginMemberDataModel
             {
                 Account = "qqq123",
-                Password = "00000",
+                Password = "456fdg465rgegf",
                 UserName = "使用者名稱",
                 Email = "hgujgy@gmail.com"
             });

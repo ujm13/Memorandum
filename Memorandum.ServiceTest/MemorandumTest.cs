@@ -44,7 +44,7 @@ namespace Memorandum.ServiceTest
                 Title = "代辦事項名稱",
                 Description = "代辦事項內容敘述",
                 DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
-                Status = StatusEnum.completed,
+                Status = StatusEnum.Completed,
                 Priority = PriorityEnum.Medium,
                 CreateTime = DateTime.Now,
                 UpdateTime = DateTime.Now
@@ -67,7 +67,7 @@ namespace Memorandum.ServiceTest
                 Title = "代辦事項名稱",
                 Description = "代辦事項內容敘述",
                 DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
-                Status = StatusEnum.completed,
+                Status = StatusEnum.Completed,
                 Priority = PriorityEnum.Medium,
                 CreateTime = DateTime.Now,
                 UpdateTime = DateTime.Now
@@ -94,7 +94,7 @@ namespace Memorandum.ServiceTest
                 Title = "更新代辦事項名稱",
                 Description = "更新代辦事項內容敘述",
                 DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
-                Status = StatusEnum.completed,
+                Status = StatusEnum.Completed,
                 Priority = PriorityEnum.Medium,
                 UpdateTime = DateTime.Now
             };
@@ -117,7 +117,7 @@ namespace Memorandum.ServiceTest
                 Title = "更新代辦事項名稱",
                 Description = "更新代辦事項內容敘述",
                 DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
-                Status = StatusEnum.completed,
+                Status = StatusEnum.Completed,
                 Priority = PriorityEnum.Medium,
                 UpdateTime = DateTime.Now
             };
@@ -146,7 +146,7 @@ namespace Memorandum.ServiceTest
                 Title = "代辦事項名稱",
                 Description = "代辦事項內容敘述",
                 DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
-                Status = StatusEnum.completed,
+                Status = StatusEnum.Completed,
                 Priority = PriorityEnum.Medium,
                 UpdateTime = nowDate
             });
@@ -161,7 +161,7 @@ namespace Memorandum.ServiceTest
                 Title = "代辦事項名稱",
                 Description = "代辦事項內容敘述",
                 DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
-                Status = StatusEnum.completed,
+                Status = StatusEnum.Completed,
                 Priority = PriorityEnum.Medium,
                 UpdateTime = nowDate
             });
@@ -214,7 +214,7 @@ namespace Memorandum.ServiceTest
                     Title = "代辦事項名稱",
                     Description = "代辦事項內容敘述",
                     DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
-                    Status = StatusEnum.completed,
+                    Status = StatusEnum.Completed,
                     Priority = PriorityEnum.Medium,
                     CreateTime=new DateTime(2024, 05, 26, 10, 00, 00),
                     UpdateTime = nowDate
@@ -233,7 +233,7 @@ namespace Memorandum.ServiceTest
                     Title = "代辦事項名稱",
                     Description = "代辦事項內容敘述",
                     DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
-                    Status = StatusEnum.completed,
+                    Status = StatusEnum.Completed,
                     Priority = PriorityEnum.Medium,
                     CreateTime=new DateTime(2024, 05, 26, 10, 00, 00),
                     UpdateTime = nowDate
