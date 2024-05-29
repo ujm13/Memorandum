@@ -1,6 +1,7 @@
 ﻿using Memorandum.Repository.Implement;
 using Memorandum.Repository.Interfaces;
 using Memorandum.Service.Implement;
+using Memorandum.Service.infrastructure.Helpers;
 using Memorandum.Service.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
@@ -15,6 +16,7 @@ namespace Memorandum.WebApplication.infrastructure.Extensions
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<IMemorandumRepository, MemorandumRepository>();
             services.AddScoped<IMemorandumService, MemorandumService>();
+            services.AddScoped<IEncryptHelper, EncryptHelper>();
             
             return services;
         }

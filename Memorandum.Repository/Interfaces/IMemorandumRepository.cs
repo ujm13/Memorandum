@@ -43,5 +43,12 @@ namespace Memorandum.Repository.Interfaces
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         Task<bool> DeleteAsync(Guid id);
+
+        /// <summary>
+        /// 查詢Id是否存在
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> IsExistIdAsync(Guid id);
     }
 }

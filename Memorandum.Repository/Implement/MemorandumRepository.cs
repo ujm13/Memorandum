@@ -49,14 +49,7 @@ namespace Memorandum.Repository.Implement
                     @CreateTime,
                     @UpdateTime 
                     ) ";
-            var id=Guid.NewGuid();
-            var cheakId = await CheakIdAsync(id);
-            while (cheakId != 0) 
-            {
-                id = Guid.NewGuid();
-                cheakId = await CheakIdAsync(id);
-            }
-            parameterModel.Id = id;
+            
             await using var conn = new SqlConnection(_dbConnectionOptions.Member);
             var result=await conn.ExecuteAsync(sql, parameterModel);
             return result>0;
@@ -69,14 +62,14 @@ namespace Memorandum.Repository.Implement
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        private async Task<int> CheakIdAsync(Guid id) 
+        public async Task<bool> IsExistIdAsync(Guid id) 
         {
             var sql = @"Select count(*)
                        From Memorandum
                        Where Id=@id";
             await using var conn = new SqlConnection(_dbConnectionOptions.Member);
-            var result = await conn.ExecuteScalarAsync<int>(sql, id);
-            return result;
+            var result = await conn.QueryFirstOrDefaultAsync<int>(sql, id);
+            return result>0;
         }
 
 

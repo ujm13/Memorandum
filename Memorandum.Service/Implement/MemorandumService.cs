@@ -32,12 +32,29 @@ namespace Memorandum.Service.Implement
         public async Task<bool> CreateAsync(CreateMemorandumParameterDto parameterDto)
         {
             var parameterDtoModel = _mapper.Map<InsertMemorandumParameterModel>(parameterDto);
+            parameterDtoModel.Id = await GenerateIDAsync();
             var success=await _memorandumRepository.InsertAsync(parameterDtoModel);
             if (!success)
             {
                 throw new MemorandumException("新增代辦事項失敗");
             }
             return success;
+        }
+
+        /// <summary>
+        /// 產生id
+        /// </summary>
+        /// <returns></returns>
+        private async Task<Guid> GenerateIDAsync()
+        {
+            var id = Guid.NewGuid();
+            var isExistId = await _memorandumRepository.IsExistIdAsync(id);
+            while (isExistId)
+            {
+                id = Guid.NewGuid();
+                isExistId = await _memorandumRepository.IsExistIdAsync(id);
+            }
+            return id;
         }
 
         /// <summary>
