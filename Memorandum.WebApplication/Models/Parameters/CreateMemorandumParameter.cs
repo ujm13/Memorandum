@@ -24,13 +24,11 @@ namespace Memorandum.WebApplication.Models.Parameters
         /// <summary>
         /// 狀態
         /// </summary>
-        [DescriptionAttribute]
         public StatusEnum Status { get; set; }
 
         /// <summary>
         /// 優先級
         /// </summary>
-        [DescriptionAttribute]
         public PriorityEnum Priority { get; set; }
 
     }
