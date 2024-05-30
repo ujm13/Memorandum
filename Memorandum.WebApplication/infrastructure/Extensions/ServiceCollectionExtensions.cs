@@ -8,8 +8,16 @@ using System.Runtime.CompilerServices;
 
 namespace Memorandum.WebApplication.infrastructure.Extensions
 {
+    /// <summary>
+    /// ServiceCollectionExtensions
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// AddDependencyInjection
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
         {
             services.AddScoped<IMemberRepository, MemberRepository>();

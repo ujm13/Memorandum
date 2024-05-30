@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Memorandum.Common.Enums
 {
-    
+    /// <summary>
+    /// PriorityEnum
+    /// </summary>
     public enum PriorityEnum
     {
         [Description("低")]

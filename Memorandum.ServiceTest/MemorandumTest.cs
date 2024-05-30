@@ -131,7 +131,7 @@ namespace Memorandum.ServiceTest
         }
 
         [Fact]
-        public async Task UpdateAsyncTest_輸入查詢id_且id為預設值_回傳MemorandumNotFountException()
+        public async Task UpdateAsyncTest_輸入查詢id_且id為預設值_回傳MemorandumNotFoundException()
         {
             //Arrange
             var id = Guid.Empty;
@@ -149,11 +149,11 @@ namespace Memorandum.ServiceTest
             Func<Task> act = () => _memorandumService.UpdateAsync(id, parameterModelDto);
 
             //Assert
-            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} is empty");
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} is empty");
         }
 
         [Fact]
-        public async Task UpdateAsyncTest_輸入查詢id_查詢結果為false_回傳MemorandumNotFountException()
+        public async Task UpdateAsyncTest_輸入查詢id_查詢結果為false_回傳MemorandumNotFoundException()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -172,7 +172,7 @@ namespace Memorandum.ServiceTest
             Func<Task> act = () => _memorandumService.UpdateAsync(id, parameterModelDto);
 
             //Assert
-            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} not found");
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} not found");
 
         }
 
@@ -214,7 +214,7 @@ namespace Memorandum.ServiceTest
         }
 
         [Fact]
-        public async Task GetDetailAsyncTest_輸入查詢id_且id為預設值_回傳MemorandumNotFountException()
+        public async Task GetDetailAsyncTest_輸入查詢id_且id為預設值_回傳MemorandumNotFoundException()
         {
             //Arrange
             var id = Guid.Empty;
@@ -223,11 +223,11 @@ namespace Memorandum.ServiceTest
             Func<Task> act = () => _memorandumService.GetDetailAsync(id);
 
             //Assert
-            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} is empty");
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} is empty");
         }
 
         [Fact]
-        public async Task GetDetailAsyncTest_輸入查詢id_查詢結果為Null_回傳MemorandumNotFountException()
+        public async Task GetDetailAsyncTest_輸入查詢id_查詢結果為Null_回傳MemorandumNotFoundException()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -237,7 +237,7 @@ namespace Memorandum.ServiceTest
             Func<Task> act = () => _memorandumService.GetDetailAsync(id);
 
             //Assert
-            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} not found");
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} not found");
 
         }
 
@@ -306,7 +306,7 @@ namespace Memorandum.ServiceTest
         }
 
         [Fact]
-        public async Task DeleteAsyncTest_輸入要刪除的id_id為預設值_回傳MemorandumNotFountException()
+        public async Task DeleteAsyncTest_輸入要刪除的id_id為預設值_回傳MemorandumNotFoundException()
         {
             //Arrange
             var id = Guid.Empty;
@@ -315,11 +315,11 @@ namespace Memorandum.ServiceTest
             Func<Task> act =()=> _memorandumService.DeleteAsync(id);
 
             //Assert
-            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} is empty");
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} is empty");
         }
 
         [Fact]
-        public async Task DeleteAsyncTest_輸入查詢id_查詢結果為false_回傳MemorandumNotFountException()
+        public async Task DeleteAsyncTest_輸入查詢id_查詢結果為false_回傳MemorandumNotFoundException()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -329,7 +329,7 @@ namespace Memorandum.ServiceTest
             Func<Task> act = () => _memorandumService.DeleteAsync(id);
 
             //Assert
-            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} not found");
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} not found");
 
         }
 

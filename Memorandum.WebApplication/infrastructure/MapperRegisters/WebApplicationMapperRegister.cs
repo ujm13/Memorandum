@@ -7,8 +7,15 @@ using Memorandum.WebApplication.Models.ViewModels;
 
 namespace Memorandum.WebApplication.infrastructure.MapperRegisters
 {
+    /// <summary>
+    /// WebApplicationMapperRegister
+    /// </summary>
     public class WebApplicationMapperRegister: IRegister
     {
+        /// <summary>
+        /// Register
+        /// </summary>
+        /// <param name="config"></param>
         public void Register(TypeAdapterConfig config)
         {
             config.NewConfig<RegisterMemberParameter, RegisterMemberParameterDto>();
@@ -20,9 +27,6 @@ namespace Memorandum.WebApplication.infrastructure.MapperRegisters
                 .Map(a => a.UpdateTime, b => DateTime.Now);
             config.NewConfig<MemorandumResultModelDto, MemorandumResultViewModel>();
             
-
-
-
 
         }
     }

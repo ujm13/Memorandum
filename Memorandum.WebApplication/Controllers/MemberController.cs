@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Memorandum.WebApplication.Controllers
 {
-  
+    /// <summary>
+    /// MemberController
+    /// </summary>
     [ApiController]
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiVersion("1.0")]
@@ -19,6 +21,12 @@ namespace Memorandum.WebApplication.Controllers
     {
         private readonly IMemberService _memberService;
         private readonly IMapper _mapper;
+
+        /// <summary>
+        /// MemberController
+        /// </summary>
+        /// <param name="memberService"></param>
+        /// <param name="mapper"></param>
         public MemberController(IMemberService memberService, IMapper mapper)
         {
             _memberService = memberService;

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Memorandum.Common.Enums
 {
+    /// <summary>
+    /// StatusEnum
+    /// </summary>
     public enum StatusEnum
     {
         [Description("已完成")]

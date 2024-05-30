@@ -1,5 +1,8 @@
 ﻿namespace Memorandum.WebApplication.Models.Parameters
 {
+    /// <summary>
+    /// LoginMemberParameter
+    /// </summary>
     public class LoginMemberParameter
     {
         /// <summary>

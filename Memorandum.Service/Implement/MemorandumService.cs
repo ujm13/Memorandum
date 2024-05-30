@@ -66,12 +66,12 @@ namespace Memorandum.Service.Implement
         {
             if (id == Guid.Empty)
             {
-                throw new MemorandumNotFountException($"id {id} is empty");
+                throw new MemorandumNotFoundException($"id {id} is empty");
             }
             var isExistId = await _memorandumRepository.IsExistIdAsync(id);
             if (!isExistId) 
             {
-                throw new MemorandumNotFountException($"id {id} not found");
+                throw new MemorandumNotFoundException($"id {id} not found");
             }
             var parameterModel = _mapper.Map<UpdateMemorandumParameterModel>(parameterDto);
             parameterModel.Id = id;
@@ -93,14 +93,14 @@ namespace Memorandum.Service.Implement
         {
             if (id == Guid.Empty)
             {
-                throw new MemorandumNotFountException($"id {id} is empty");
+                throw new MemorandumNotFoundException($"id {id} is empty");
             }
 
             var resultDataModel = await _memorandumRepository.GetDetailAsync(id);
 
             if (resultDataModel is null)
             {
-                throw new MemorandumNotFountException($"id {id} not found");
+                throw new MemorandumNotFoundException($"id {id} not found");
             }
 
             var resultModelDto = _mapper.Map<MemorandumResultModelDto>(resultDataModel);
@@ -132,13 +132,13 @@ namespace Memorandum.Service.Implement
         {
             if (id == Guid.Empty)
             {
-                throw new MemorandumNotFountException($"id {id} is empty");
+                throw new MemorandumNotFoundException($"id {id} is empty");
             }
 
             var isExistId = await _memorandumRepository.IsExistIdAsync(id);
             if (!isExistId)
             {
-                throw new MemorandumNotFountException($"id {id} not found");
+                throw new MemorandumNotFoundException($"id {id} not found");
             }
 
             var success = await _memorandumRepository.DeleteAsync(id);

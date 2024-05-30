@@ -1,5 +1,8 @@
 ﻿namespace Memorandum.WebApplication.Models.Parameters
 {
+    /// <summary>
+    /// RegisterMemberParameter
+    /// </summary>
     public class RegisterMemberParameter
     {
 

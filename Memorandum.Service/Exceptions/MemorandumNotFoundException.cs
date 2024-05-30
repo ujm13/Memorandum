@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Memorandum.Service.Exceptions
 {
-    public class MemorandumNotFountException:Exception
+    public class MemorandumNotFoundException:Exception
     {
-        public MemorandumNotFountException(string message):base(message) 
+        public MemorandumNotFoundException(string message):base(message) 
         {
         }
     }

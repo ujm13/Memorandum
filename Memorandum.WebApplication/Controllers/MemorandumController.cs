@@ -10,6 +10,9 @@ using System.Reflection.Metadata;
 
 namespace Memorandum.WebApplication.Controllers
 {
+    /// <summary>
+    /// MemorandumController
+    /// </summary>
     [ApiController]
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiVersion("1.0")]
@@ -17,6 +20,12 @@ namespace Memorandum.WebApplication.Controllers
     {
         private readonly IMemorandumService _memorandumService;
         private readonly IMapper _mapper;
+
+        /// <summary>
+        /// MemorandumController
+        /// </summary>
+        /// <param name="memorandumService"></param>
+        /// <param name="mapper"></param>
         public MemorandumController(IMemorandumService memorandumService, IMapper mapper)
         {
             _memorandumService = memorandumService;
@@ -52,7 +61,7 @@ namespace Memorandum.WebApplication.Controllers
         /// <returns></returns>
         [HttpPatch("{id}")]
         [MemorandumExceptionFilter]
-        [MemorandumNotFountExceptionFilter]
+        [MemorandumNotFoundExceptionFilter]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromRoute]Guid id,[FromBody] UpdateMemorandumParameter parameter)
@@ -71,10 +80,8 @@ namespace Memorandum.WebApplication.Controllers
         /// <summary>
         /// 取得代辦事項名細
         /// </summary>
-        /// <param name="parameter">The parameter.</param>
-        /// <returns></returns>
         [HttpGet("{id}")]
-        [MemorandumNotFountExceptionFilter]
+        [MemorandumNotFoundExceptionFilter]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDetailAsync([FromRoute]Guid id)
@@ -94,8 +101,6 @@ namespace Memorandum.WebApplication.Controllers
         /// <summary>
         /// 取得所有代辦事項
         /// </summary>
-        /// <param name="parameter">The parameter.</param>
-        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
@@ -116,7 +121,7 @@ namespace Memorandum.WebApplication.Controllers
         /// <returns></returns>
         [HttpDelete("{id}")]
         [MemorandumExceptionFilter]
-        [MemorandumNotFountExceptionFilter]
+        [MemorandumNotFoundExceptionFilter]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status200OK)]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status400BadRequest)]
         [ProducesResponseType<ResultViewModel<bool>>(StatusCodes.Status404NotFound)]

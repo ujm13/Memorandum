@@ -5,9 +5,17 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Memorandum.WebApplication.infrastructure.ExceptionFilters
 {
+    /// <summary>
+    /// MemorandumExceptionFilter
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public class MemorandumExceptionFilter: ExceptionFilterAttribute
     {
+        /// <summary>
+        /// OnExceptionAsync
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task OnExceptionAsync(ExceptionContext context)
         {
             if (context.Exception is MemorandumException)
