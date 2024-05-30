@@ -130,6 +130,28 @@ namespace Memorandum.ServiceTest
             await act.Should().ThrowAsync<MemorandumException>().WithMessage("更新代辦事項失敗");
         }
 
+        [Fact]
+        public async Task UpdateAsyncTest_輸入查詢id_且id為預設值_回傳MemorandumNotFountException()
+        {
+            //Arrange
+            var id = Guid.Empty;
+            var parameterModelDto = new UpdateMemorandumParameterDto
+            {
+                Title = "更新代辦事項名稱",
+                Description = "更新代辦事項內容敘述",
+                DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
+                Status = StatusEnum.Completed,
+                Priority = PriorityEnum.Medium,
+                UpdateTime = DateTime.Now
+            };
+
+            //Actual
+            Func<Task> act = () => _memorandumService.UpdateAsync(id, parameterModelDto);
+
+            //Assert
+            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} is empty");
+        }
+
         /// <summary>
         /// 取得明細資料測試
         /// </summary>
