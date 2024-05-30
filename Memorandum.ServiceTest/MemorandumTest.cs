@@ -319,6 +319,21 @@ namespace Memorandum.ServiceTest
         }
 
         [Fact]
+        public async Task DeleteAsyncTest_輸入查詢id_查詢結果為false_回傳MemorandumNotFountException()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            _memorandumRepository.IsExistIdAsync(Arg.Any<Guid>()).Returns(false);
+
+            //Actual
+            Func<Task> act = () => _memorandumService.DeleteAsync(id);
+
+            //Assert
+            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} not found");
+
+        }
+
+        [Fact]
         public async Task DeleteAsyncTest_輸入要刪除的id_刪除代辦事項失敗_回傳MemorandumException()
         {
             //Arrange
