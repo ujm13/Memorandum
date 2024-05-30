@@ -34,7 +34,6 @@ namespace Memorandum.Service.Implement
         /// </summary>
         /// <param name="parameterDto"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public async Task<bool> RegisterAsync(RegisterMemberParameterDto parameterDto)
         {
             var parameterModel= _mapper.Map<RegisterMemberParameterModel>(parameterDto);
