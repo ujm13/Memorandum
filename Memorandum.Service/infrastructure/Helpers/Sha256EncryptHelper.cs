@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Memorandum.Service.infrastructure.Helpers
 {
 
-    public class EncryptHelper: IEncryptHelper
+    public class Sha256EncryptHelper: IEncryptHelper
     {
         private const string HashKey = "gfdg43424fh";
         /// <summary>
@@ -16,7 +16,7 @@ namespace Memorandum.Service.infrastructure.Helpers
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
-        public string Sha256EncryptHelper(string password)
+        public string HashPassword(string password)
         {
             var inputBytes = Encoding.UTF8.GetBytes(password + HashKey);
             var inputHash = SHA256.HashData(inputBytes);

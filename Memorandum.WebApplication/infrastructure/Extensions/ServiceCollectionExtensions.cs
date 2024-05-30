@@ -16,7 +16,7 @@ namespace Memorandum.WebApplication.infrastructure.Extensions
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<IMemorandumRepository, MemorandumRepository>();
             services.AddScoped<IMemorandumService, MemorandumService>();
-            services.AddScoped<IEncryptHelper, EncryptHelper>();
+            services.AddScoped<IEncryptHelper, Sha256EncryptHelper>();
             
             return services;
         }

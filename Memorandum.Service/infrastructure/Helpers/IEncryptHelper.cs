@@ -13,6 +13,6 @@ namespace Memorandum.Service.infrastructure.Helpers
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
-        string Sha256EncryptHelper(string password);
+        string HashPassword(string password);
     }
 }

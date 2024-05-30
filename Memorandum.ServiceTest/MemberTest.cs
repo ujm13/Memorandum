@@ -53,7 +53,7 @@ namespace Member.ServiceTest
                 Phone = "0912345678",
                 Birthday = new DateTime(1999, 01, 01)
             };
-            _encryptHelper.Sha256EncryptHelper(Arg.Any<string>()).Returns("456fdg465rgegf");
+            _encryptHelper.HashPassword(Arg.Any<string>()).Returns("456fdg465rgegf");
             _memberRepository.InsertAsync(Arg.Any<RegisterMemberParameterModel>()).Returns(true);
 
             //Actual
@@ -101,7 +101,7 @@ namespace Member.ServiceTest
                 Account = "qqq123",
                 Password = "00000"
             };
-            _encryptHelper.Sha256EncryptHelper(Arg.Any<string>()).Returns("456fdg465rgegf");
+            _encryptHelper.HashPassword(Arg.Any<string>()).Returns("456fdg465rgegf");
             _memberRepository.GetAsync(Arg.Any<LoginMemberParameterModel>()).Returns(new LoginMemberDataModel
             {
                 Account = "qqq123",
