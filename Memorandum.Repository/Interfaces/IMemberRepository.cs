@@ -1,10 +1,5 @@
 ﻿using Memorandum.Repository.Models.DataModels;
 using Memorandum.Repository.Models.ParamaterModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memorandum.Repository.Interfaces
 {
@@ -24,7 +19,12 @@ namespace Memorandum.Repository.Interfaces
         /// <returns></returns>
         Task<LoginMemberDataModel> GetAsync(LoginMemberParameterModel loginMemberParameter);
 
-
+        /// <summary>
+        /// 查詢Id是否存在
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> IsExistIdAsync(Guid id);
 
     }
 }

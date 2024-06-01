@@ -2,6 +2,9 @@
 
 namespace Memorandum.WebApplication.Models.Parameters
 {
+    /// <summary>
+    /// UpdateMemorandumParameter
+    /// </summary>
     public class UpdateMemorandumParameter
     {
         /// <summary>

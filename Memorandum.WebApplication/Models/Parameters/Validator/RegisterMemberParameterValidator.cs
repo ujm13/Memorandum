@@ -2,8 +2,14 @@
 
 namespace Memorandum.WebApplication.Models.Parameters.Validator
 {
+    /// <summary>
+    /// RegisterMemberParameter參數驗證
+    /// </summary>
     public class RegisterMemberParameterValidator : AbstractValidator<RegisterMemberParameter>
     {
+        /// <summary>
+        /// RegisterMemberParameterValidator
+        /// </summary>
         public RegisterMemberParameterValidator()
         {
             RuleFor(x => x.UserName)

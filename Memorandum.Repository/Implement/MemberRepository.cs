@@ -5,11 +5,6 @@ using Memorandum.Repository.Models.DataModels;
 using Memorandum.Repository.Models.ParamaterModels;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memorandum.Repository.Implement
 {
@@ -21,8 +16,6 @@ namespace Memorandum.Repository.Implement
         {
             _dbConnectionOptions = dbConnectionOptions.Value;
         }
-
-
 
         /// <summary>
         /// 用戶註冊 將資料存入DB
@@ -56,6 +49,21 @@ namespace Memorandum.Repository.Implement
         }
 
         /// <summary>
+        /// 查詢Id是否存在
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<bool> IsExistIdAsync(Guid id)
+        {
+            var sql = @"Select count(*)
+                       From Members
+                       Where Id=@id";
+            await using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            var result = await conn.QueryFirstOrDefaultAsync<int>(sql, id);
+            return result > 0;
+        }
+
+        /// <summary>
         /// 會員登入查詢
         /// </summary>
         /// <param name="loginMemberParameter"></param>
@@ -71,6 +79,4 @@ namespace Memorandum.Repository.Implement
             return result;
         }
     }
-
-
 }

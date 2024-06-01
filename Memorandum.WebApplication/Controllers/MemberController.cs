@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Memorandum.WebApplication.Controllers
 {
-  
+    /// <summary>
+    /// MemberController
+    /// </summary>
     [ApiController]
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiVersion("1.0")]
@@ -19,6 +21,12 @@ namespace Memorandum.WebApplication.Controllers
     {
         private readonly IMemberService _memberService;
         private readonly IMapper _mapper;
+
+        /// <summary>
+        /// MemberController
+        /// </summary>
+        /// <param name="memberService"></param>
+        /// <param name="mapper"></param>
         public MemberController(IMemberService memberService, IMapper mapper)
         {
             _memberService = memberService;
@@ -38,11 +46,11 @@ namespace Memorandum.WebApplication.Controllers
         {
             var validator = new RegisterMemberParameterValidator();
             var validationResult = await validator.ValidateAsync(parameter);
-
             if (validationResult.IsValid is false)
             {
                 var errorMessages = validationResult.Errors.Select(e => e.ErrorMessage);
                 var resultMessage = string.Join(",", errorMessages);
+
                 return BadRequest(new ResultViewModel<string>
                 {
                     StatuesCode = 400,
@@ -51,9 +59,9 @@ namespace Memorandum.WebApplication.Controllers
                 }); // 直接回傳 400 + 錯誤訊息
             }
 
-
             var parameterDto = _mapper.Map<RegisterMemberParameterDto>(parameter);
             var success = await _memberService.RegisterAsync(parameterDto);
+
             return Ok(new ResultViewModel<bool>
             {
                 StatuesCode = 200,
@@ -78,6 +86,7 @@ namespace Memorandum.WebApplication.Controllers
             var parameterDto = _mapper.Map<LoginMemberParameterDto>(parameter);
             var resultDto = await _memberService.LoginAsync(parameterDto);
             var resultViewModel = _mapper.Map<LoginMemberResultViewModel>(resultDto);
+
             return Ok(new ResultViewModel<LoginMemberResultViewModel>
             {
                 StatuesCode = 200,

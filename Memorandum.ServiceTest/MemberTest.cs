@@ -53,7 +53,7 @@ namespace Member.ServiceTest
                 Phone = "0912345678",
                 Birthday = new DateTime(1999, 01, 01)
             };
-            _encryptHelper.Sha256EncryptHelper(Arg.Any<string>()).Returns("456fdg465rgegf");
+            _encryptHelper.HashPassword(Arg.Any<string>()).Returns("456fdg465rgegf");
             _memberRepository.InsertAsync(Arg.Any<RegisterMemberParameterModel>()).Returns(true);
 
             //Actual
@@ -64,7 +64,7 @@ namespace Member.ServiceTest
         }
 
         [Fact]
-        public async Task RegisterAsyncTest_輸入會員資訊_且會員資料插入失敗_拋出RegisterException()
+        public async Task RegisterAsyncTest_輸入會員資訊_且會員註冊失敗_拋出RegisterException()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -84,7 +84,7 @@ namespace Member.ServiceTest
             Func<Task> act = () => _memberService.RegisterAsync(parameterDto);
 
             //Assert
-            await act.Should().ThrowAsync<RegisterException>().WithMessage("會員註冊資料插入失敗");
+            await act.Should().ThrowAsync<RegisterException>().WithMessage("會員註冊失敗");
         }
 
 
@@ -101,7 +101,8 @@ namespace Member.ServiceTest
                 Account = "qqq123",
                 Password = "00000"
             };
-            _encryptHelper.Sha256EncryptHelper(Arg.Any<string>()).Returns("456fdg465rgegf");
+            _encryptHelper.HashPassword(Arg.Any<string>()).Returns("456fdg465rgegf");
+
             _memberRepository.GetAsync(Arg.Any<LoginMemberParameterModel>()).Returns(new LoginMemberDataModel
             {
                 Account = "qqq123",
@@ -131,7 +132,6 @@ namespace Member.ServiceTest
                 Account = "qqq123",
                 Password = "00000"
             };
-
             _memberRepository.GetAsync(Arg.Any<LoginMemberParameterModel>()).ReturnsNull();
 
             //actual

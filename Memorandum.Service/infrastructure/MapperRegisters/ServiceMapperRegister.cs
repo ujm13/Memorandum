@@ -11,7 +11,10 @@ using System.Threading.Tasks;
 
 namespace Memorandum.Repository.infrastructure.MapperRegisters
 {
-    public  class ServiceMapperRegister: IRegister
+    /// <summary>
+    /// ServiceMapperRegister
+    /// </summary>
+    public class ServiceMapperRegister: IRegister
     {
         public void Register(TypeAdapterConfig config) 
         {

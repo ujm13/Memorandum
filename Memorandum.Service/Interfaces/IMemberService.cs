@@ -1,11 +1,6 @@
 ﻿using Memorandum.Service.Models.ParamaterModelDto;
 using Memorandum.Service.Models.ParameterDto;
 using Memorandum.Service.Models.ResultModelDto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memorandum.Service.Interfaces
 {

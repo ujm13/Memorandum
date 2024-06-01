@@ -2,6 +2,9 @@
 
 namespace Memorandum.WebApplication.Models.ViewModels
 {
+    /// <summary>
+    /// MemorandumResultViewModel
+    /// </summary>
     public class MemorandumResultViewModel
     {
         /// <summary>

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Memorandum.Common.Enums
 {
+    /// <summary>
+    /// StatusEnum
+    /// </summary>
     public enum StatusEnum
     {
         [Description("已完成")]
