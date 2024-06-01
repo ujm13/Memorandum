@@ -64,7 +64,7 @@ namespace Member.ServiceTest
         }
 
         [Fact]
-        public async Task RegisterAsyncTest_輸入會員資訊_且會員資料插入失敗_拋出RegisterException()
+        public async Task RegisterAsyncTest_輸入會員資訊_且會員註冊失敗_拋出RegisterException()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -84,7 +84,7 @@ namespace Member.ServiceTest
             Func<Task> act = () => _memberService.RegisterAsync(parameterDto);
 
             //Assert
-            await act.Should().ThrowAsync<RegisterException>().WithMessage("會員註冊資料插入失敗");
+            await act.Should().ThrowAsync<RegisterException>().WithMessage("會員註冊失敗");
         }
 
 
