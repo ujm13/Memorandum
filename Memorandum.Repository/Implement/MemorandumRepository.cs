@@ -1,16 +1,10 @@
 ﻿using Dapper;
-using Mapster.Models;
 using Memorandum.Common.Options;
 using Memorandum.Repository.Interfaces;
 using Memorandum.Repository.Models.DataModels;
 using Memorandum.Repository.Models.ParamaterModels;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memorandum.Repository.Implement
 {

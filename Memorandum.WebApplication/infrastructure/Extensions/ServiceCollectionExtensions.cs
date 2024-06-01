@@ -3,8 +3,6 @@ using Memorandum.Repository.Interfaces;
 using Memorandum.Service.Implement;
 using Memorandum.Service.infrastructure.Helpers;
 using Memorandum.Service.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.CompilerServices;
 
 namespace Memorandum.WebApplication.infrastructure.Extensions
 {
