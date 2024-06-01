@@ -3,18 +3,21 @@ using System.ComponentModel;
 
 namespace Memorandum.WebApplication.Models.Parameters
 {
+    /// <summary>
+    /// CreateMemorandumParameter
+    /// </summary>
     public class CreateMemorandumParameter
     {
 
         /// <summary>
         /// 標題
         /// </summary>
-        public string Title { get; set; }
+        public string ?Title { get; set; }
 
         /// <summary>
         /// 敘述
         /// </summary>
-        public string Description { get; set; }
+        public string ?Description { get; set; }
 
         /// <summary>
         /// 截止日期

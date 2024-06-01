@@ -1,16 +1,10 @@
 ﻿using Dapper;
-using Mapster.Models;
 using Memorandum.Common.Options;
 using Memorandum.Repository.Interfaces;
 using Memorandum.Repository.Models.DataModels;
 using Memorandum.Repository.Models.ParamaterModels;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memorandum.Repository.Implement
 {
@@ -53,9 +47,7 @@ namespace Memorandum.Repository.Implement
             await using var conn = new SqlConnection(_dbConnectionOptions.Member);
             var result=await conn.ExecuteAsync(sql, parameterModel);
             return result>0;
-
         }
-
 
         /// <summary>
         /// 查詢Id是否存在
@@ -71,7 +63,6 @@ namespace Memorandum.Repository.Implement
             var result = await conn.QueryFirstOrDefaultAsync<int>(sql, id);
             return result>0;
         }
-
 
         /// <summary>
         /// 修改代辦事項
@@ -161,6 +152,5 @@ namespace Memorandum.Repository.Implement
             var result = await conn.ExecuteAsync(sql, parameter);
             return result > 0;
         }
-
     }
 }

@@ -5,8 +5,16 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Memorandum.WebApplication.infrastructure
 {
+    /// <summary>
+    /// SwaggerEnumDocumentFilter
+    /// </summary>
     public class SwaggerEnumDocumentFilter : IDocumentFilter
     {
+        /// <summary>
+        /// Apply
+        /// </summary>
+        /// <param name="swaggerDoc"></param>
+        /// <param name="context"></param>
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             // add enum descriptions to result models

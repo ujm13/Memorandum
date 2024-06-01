@@ -1,5 +1,8 @@
 ﻿namespace Memorandum.WebApplication.Models.ViewModels
 {
+    /// <summary>
+    /// LoginMemberResultViewModel
+    /// </summary>
     public class LoginMemberResultViewModel
     {
         /// <summary>

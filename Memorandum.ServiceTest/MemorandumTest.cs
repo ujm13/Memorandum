@@ -2,6 +2,7 @@ using FluentAssertions;
 using Mapster;
 using MapsterMapper;
 using Memorandum.Common.Enums;
+using Memorandum.Repository.Implement;
 using Memorandum.Repository.infrastructure.MapperRegisters;
 using Memorandum.Repository.Interfaces;
 using Memorandum.Repository.Models.DataModels;
@@ -91,6 +92,7 @@ namespace Memorandum.ServiceTest
             var id = Guid.NewGuid();
             var parameterModelDto = new UpdateMemorandumParameterDto
             {
+                Id = id,
                 Title = "更新代辦事項名稱",
                 Description = "更新代辦事項內容敘述",
                 DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
@@ -98,10 +100,11 @@ namespace Memorandum.ServiceTest
                 Priority = PriorityEnum.Medium,
                 UpdateTime = DateTime.Now
             };
+            _memorandumRepository.IsExistIdAsync(Arg.Any<Guid>()).Returns(true);
             _memorandumRepository.UpdateAsync(Arg.Any<UpdateMemorandumParameterModel>()).Returns(true);
 
             //Actual
-            var actual = await _memorandumService.UpdateAsync(id, parameterModelDto);
+            var actual = await _memorandumService.UpdateAsync(parameterModelDto);
 
             //Assert
             actual.Should().BeTrue();
@@ -114,6 +117,7 @@ namespace Memorandum.ServiceTest
             var id = Guid.NewGuid();
             var parameterModelDto = new UpdateMemorandumParameterDto
             {
+                Id= id,
                 Title = "更新代辦事項名稱",
                 Description = "更新代辦事項內容敘述",
                 DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
@@ -121,13 +125,62 @@ namespace Memorandum.ServiceTest
                 Priority = PriorityEnum.Medium,
                 UpdateTime = DateTime.Now
             };
+            _memorandumRepository.IsExistIdAsync(Arg.Any<Guid>()).Returns(true);
             _memorandumRepository.UpdateAsync(Arg.Any<UpdateMemorandumParameterModel>()).Returns(false);
 
             //Actual
-            Func<Task> act = () => _memorandumService.UpdateAsync(id, parameterModelDto);
+            Func<Task> act = () => _memorandumService.UpdateAsync(parameterModelDto);
 
             //Assert
             await act.Should().ThrowAsync<MemorandumException>().WithMessage("更新代辦事項失敗");
+        }
+
+        [Fact]
+        public async Task UpdateAsyncTest_輸入查詢id_且id為預設值_回傳MemorandumNotFoundException()
+        {
+            //Arrange
+            var id = Guid.Empty;
+            var parameterModelDto = new UpdateMemorandumParameterDto
+            {
+                Id = id,
+                Title = "更新代辦事項名稱",
+                Description = "更新代辦事項內容敘述",
+                DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
+                Status = StatusEnum.Completed,
+                Priority = PriorityEnum.Medium,
+                UpdateTime = DateTime.Now
+            };
+
+            //Actual
+            Func<Task> act = () => _memorandumService.UpdateAsync(parameterModelDto);
+
+            //Assert
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} is empty");
+        }
+
+        [Fact]
+        public async Task UpdateAsyncTest_輸入查詢id_查詢結果為false_回傳MemorandumNotFoundException()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            var parameterModelDto = new UpdateMemorandumParameterDto
+            {
+                Id = id,
+                Title = "更新代辦事項名稱",
+                Description = "更新代辦事項內容敘述",
+                DueDate = new DateTime(1999, 01, 01, 10, 00, 00),
+                Status = StatusEnum.Completed,
+                Priority = PriorityEnum.Medium,
+                UpdateTime = DateTime.Now
+            };
+            _memorandumRepository.IsExistIdAsync(Arg.Any<Guid>()).Returns(false);
+
+            //Actual
+            Func<Task> act = () => _memorandumService.UpdateAsync(parameterModelDto);
+
+            //Assert
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} not found");
+
         }
 
         /// <summary>
@@ -168,7 +221,7 @@ namespace Memorandum.ServiceTest
         }
 
         [Fact]
-        public async Task GetDetailAsyncTest_輸入查詢id_且id為預設值_回傳MemorandumNotFountException()
+        public async Task GetDetailAsyncTest_輸入查詢id_且id為預設值_回傳MemorandumNotFoundException()
         {
             //Arrange
             var id = Guid.Empty;
@@ -177,11 +230,11 @@ namespace Memorandum.ServiceTest
             Func<Task> act = () => _memorandumService.GetDetailAsync(id);
 
             //Assert
-            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} is empty");
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} is empty");
         }
 
         [Fact]
-        public async Task GetDetailAsyncTest_輸入查詢id_查詢結果為Null_回傳MemorandumNotFountException()
+        public async Task GetDetailAsyncTest_輸入查詢id_查詢結果為Null_回傳MemorandumNotFoundException()
         {
             //Arrange
             var id = Guid.NewGuid();
@@ -191,7 +244,7 @@ namespace Memorandum.ServiceTest
             Func<Task> act = () => _memorandumService.GetDetailAsync(id);
 
             //Assert
-            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} not found");
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} not found");
 
         }
 
@@ -250,6 +303,7 @@ namespace Memorandum.ServiceTest
         {
             //Arrange
             var id = Guid.NewGuid();
+            _memorandumRepository.IsExistIdAsync(Arg.Any<Guid>()).Returns(true);
             _memorandumRepository.DeleteAsync(Arg.Any<Guid>()).Returns(true);
 
             //Actual
@@ -260,7 +314,7 @@ namespace Memorandum.ServiceTest
         }
 
         [Fact]
-        public async Task DeleteAsyncTest_輸入要刪除的id_id為預設值_回傳MemorandumNotFountException()
+        public async Task DeleteAsyncTest_輸入要刪除的id_id為預設值_回傳MemorandumNotFoundException()
         {
             //Arrange
             var id = Guid.Empty;
@@ -269,7 +323,22 @@ namespace Memorandum.ServiceTest
             Func<Task> act =()=> _memorandumService.DeleteAsync(id);
 
             //Assert
-            await act.Should().ThrowAsync<MemorandumNotFountException>().WithMessage($"id {id} is empty");
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} is empty");
+        }
+
+        [Fact]
+        public async Task DeleteAsyncTest_輸入查詢id_查詢結果為false_回傳MemorandumNotFoundException()
+        {
+            //Arrange
+            var id = Guid.NewGuid();
+            _memorandumRepository.IsExistIdAsync(Arg.Any<Guid>()).Returns(false);
+
+            //Actual
+            Func<Task> act = () => _memorandumService.DeleteAsync(id);
+
+            //Assert
+            await act.Should().ThrowAsync<MemorandumNotFoundException>().WithMessage($"id {id} not found");
+
         }
 
         [Fact]
@@ -277,8 +346,9 @@ namespace Memorandum.ServiceTest
         {
             //Arrange
             var id = Guid.NewGuid();
+            _memorandumRepository.IsExistIdAsync(Arg.Any<Guid>()).Returns(true);
             _memorandumRepository.DeleteAsync(Arg.Any<Guid>()).Returns(false);
-
+            
             //Actual
             Func<Task> act = () => _memorandumService.DeleteAsync(id);
 

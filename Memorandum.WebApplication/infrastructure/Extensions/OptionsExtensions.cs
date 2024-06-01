@@ -2,9 +2,17 @@
 
 namespace Memorandum.WebApplication.infrastructure.Extensions
 {
+    /// <summary>
+    /// OptionsExtensions
+    /// </summary>
     public static class OptionsExtensions
     {
-
+        /// <summary>
+        /// AddOptionsDependency
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public static IServiceCollection AddOptionsDependency(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddOptions<DbConnectionOptions>()

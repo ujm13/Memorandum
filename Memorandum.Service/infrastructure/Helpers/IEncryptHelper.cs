@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Memorandum.Service.infrastructure.Helpers
+﻿namespace Memorandum.Service.infrastructure.Helpers
 {
     public interface IEncryptHelper
     {
@@ -13,6 +7,6 @@ namespace Memorandum.Service.infrastructure.Helpers
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
-        string Sha256EncryptHelper(string password);
+        string HashPassword(string password);
     }
 }

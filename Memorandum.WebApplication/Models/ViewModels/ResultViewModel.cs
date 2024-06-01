@@ -1,5 +1,9 @@
 ﻿namespace Memorandum.WebApplication.Models.ViewModels
 {
+    /// <summary>
+    /// ResultViewModel
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ResultViewModel<T>
     {
         /// <summary>

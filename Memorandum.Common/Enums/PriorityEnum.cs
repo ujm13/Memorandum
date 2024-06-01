@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Memorandum.Common.Enums
 {
-    
+    /// <summary>
+    /// PriorityEnum
+    /// </summary>
     public enum PriorityEnum
     {
         [Description("低")]

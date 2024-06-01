@@ -1,16 +1,10 @@
 ﻿using MapsterMapper;
-using Memorandum.Repository.Implement;
 using Memorandum.Repository.Interfaces;
 using Memorandum.Repository.Models.ParamaterModels;
 using Memorandum.Service.Exceptions;
 using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParameterDto;
 using Memorandum.Service.Models.ResultModelDto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memorandum.Service.Implement
 {
@@ -32,12 +26,14 @@ namespace Memorandum.Service.Implement
         public async Task<bool> CreateAsync(CreateMemorandumParameterDto parameterDto)
         {
             var parameterDtoModel = _mapper.Map<InsertMemorandumParameterModel>(parameterDto);
-            parameterDtoModel.Id = await GenerateIDAsync();
+            parameterDtoModel.Id = await GenerateIdAsync();
+
             var success=await _memorandumRepository.InsertAsync(parameterDtoModel);
             if (!success)
             {
                 throw new MemorandumException("新增代辦事項失敗");
             }
+
             return success;
         }
 
@@ -45,7 +41,7 @@ namespace Memorandum.Service.Implement
         /// 產生id
         /// </summary>
         /// <returns></returns>
-        private async Task<Guid> GenerateIDAsync()
+        private async Task<Guid> GenerateIdAsync()
         {
             var id = Guid.NewGuid();
             var isExistId = await _memorandumRepository.IsExistIdAsync(id);
@@ -54,27 +50,31 @@ namespace Memorandum.Service.Implement
                 id = Guid.NewGuid();
                 isExistId = await _memorandumRepository.IsExistIdAsync(id);
             }
+
             return id;
         }
 
         /// <summary>
         /// 修改代辦事項
         /// </summary>
-        /// <param name="parameterModel">The parameter model.</param>
+        /// <param name="parameterDto"></param>
         /// <returns></returns>
-        public async Task<bool> UpdateAsync(Guid id,UpdateMemorandumParameterDto parameterDto)
+        /// <exception cref="MemorandumNotFoundException"></exception>
+        /// <exception cref="MemorandumException"></exception>
+        public async Task<bool> UpdateAsync(UpdateMemorandumParameterDto parameterDto)
         {
-            if (id == Guid.Empty)
+            if (parameterDto.Id == Guid.Empty)
             {
-                throw new MemorandumNotFountException($"id {id} is empty");
+                throw new MemorandumNotFoundException($"id {parameterDto.Id} is empty");
             }
-            var isExistId = await _memorandumRepository.IsExistIdAsync(id);
+
+            var isExistId = await _memorandumRepository.IsExistIdAsync(parameterDto.Id);
             if (!isExistId) 
             {
-                throw new MemorandumNotFountException($"id {id} not found");
+                throw new MemorandumNotFoundException($"id {parameterDto.Id} not found");
             }
-            var parameterModel = _mapper.Map<UpdateMemorandumParameterModel>(parameterDto);
-            parameterModel.Id = id;
+
+            var parameterModel = _mapper.Map<UpdateMemorandumParameterModel>(parameterDto);            
             var success = await _memorandumRepository.UpdateAsync(parameterModel);
             if (!success)  
             {
@@ -93,22 +93,18 @@ namespace Memorandum.Service.Implement
         {
             if (id == Guid.Empty)
             {
-                throw new MemorandumNotFountException($"id {id} is empty");
+                throw new MemorandumNotFoundException($"id {id} is empty");
             }
 
             var resultDataModel = await _memorandumRepository.GetDetailAsync(id);
-
             if (resultDataModel is null)
             {
-                throw new MemorandumNotFountException($"id {id} not found");
+                throw new MemorandumNotFoundException($"id {id} not found");
             }
 
             var resultModelDto = _mapper.Map<MemorandumResultModelDto>(resultDataModel);
-
             return resultModelDto;
-
         }
-
 
         /// <summary>
         /// 取得所有資料
@@ -122,7 +118,6 @@ namespace Memorandum.Service.Implement
             return resultModelDto;
         }
 
-
         /// <summary>
         /// 刪除資料
         /// </summary>
@@ -132,17 +127,16 @@ namespace Memorandum.Service.Implement
         {
             if (id == Guid.Empty)
             {
-                throw new MemorandumNotFountException($"id {id} is empty");
+                throw new MemorandumNotFoundException($"id {id} is empty");
             }
 
             var isExistId = await _memorandumRepository.IsExistIdAsync(id);
             if (!isExistId)
             {
-                throw new MemorandumNotFountException($"id {id} not found");
+                throw new MemorandumNotFoundException($"id {id} not found");
             }
 
             var success = await _memorandumRepository.DeleteAsync(id);
-
             if (!success)
             {
                 throw new MemorandumException("刪除代辦事項失敗");
