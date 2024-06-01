@@ -7,11 +7,6 @@ using Memorandum.Service.Interfaces;
 using Memorandum.Service.Models.ParamaterModelDto;
 using Memorandum.Service.Models.ParameterDto;
 using Memorandum.Service.Models.ResultModelDto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Memorandum.Service.Implement
 {
@@ -37,16 +32,32 @@ namespace Memorandum.Service.Implement
         public async Task<bool> RegisterAsync(RegisterMemberParameterDto parameterDto)
         {
             var parameterModel= _mapper.Map<RegisterMemberParameterModel>(parameterDto);
-
+            parameterModel.Id =await GenerateIdAsync();
             parameterModel.Password = _encryptHelper.HashPassword(parameterModel.Password);
             var success=await _memberRepository.InsertAsync(parameterModel);
             if (!success) 
             {
-                throw new RegisterException("會員註冊資料插入失敗");
+                throw new RegisterException("會員註冊失敗");
             }
             return success;
         }
 
+
+        /// <summary>
+        /// 產生id
+        /// </summary>
+        /// <returns></returns>
+        private async Task<Guid> GenerateIdAsync()
+        {
+            var id = Guid.NewGuid();
+            var isExistId = await _memberRepository.IsExistIdAsync(id);
+            while (isExistId)
+            {
+                id = Guid.NewGuid();
+                isExistId = await _memberRepository.IsExistIdAsync(id);
+            }
+            return id;
+        }
 
         /// <summary>
         /// 會員登入

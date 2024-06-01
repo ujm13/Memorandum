@@ -24,7 +24,12 @@ namespace Memorandum.Repository.Interfaces
         /// <returns></returns>
         Task<LoginMemberDataModel> GetAsync(LoginMemberParameterModel loginMemberParameter);
 
-
+        /// <summary>
+        /// 查詢Id是否存在
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<bool> IsExistIdAsync(Guid id);
 
     }
 }

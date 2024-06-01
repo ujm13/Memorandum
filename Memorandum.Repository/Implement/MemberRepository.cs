@@ -56,6 +56,21 @@ namespace Memorandum.Repository.Implement
         }
 
         /// <summary>
+        /// 查詢Id是否存在
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<bool> IsExistIdAsync(Guid id)
+        {
+            var sql = @"Select count(*)
+                       From Members
+                       Where Id=@id";
+            await using var conn = new SqlConnection(_dbConnectionOptions.Member);
+            var result = await conn.QueryFirstOrDefaultAsync<int>(sql, id);
+            return result > 0;
+        }
+
+        /// <summary>
         /// 會員登入查詢
         /// </summary>
         /// <param name="loginMemberParameter"></param>
@@ -70,6 +85,8 @@ namespace Memorandum.Repository.Implement
             var result=await conn.QueryFirstOrDefaultAsync<LoginMemberDataModel>(sql, loginMemberParameter);
             return result;
         }
+
+
     }
 
 
