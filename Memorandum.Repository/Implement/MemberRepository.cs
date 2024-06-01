@@ -17,8 +17,6 @@ namespace Memorandum.Repository.Implement
             _dbConnectionOptions = dbConnectionOptions.Value;
         }
 
-
-
         /// <summary>
         /// 用戶註冊 將資料存入DB
         /// </summary>
@@ -80,9 +78,5 @@ namespace Memorandum.Repository.Implement
             var result=await conn.QueryFirstOrDefaultAsync<LoginMemberDataModel>(sql, loginMemberParameter);
             return result;
         }
-
-
     }
-
-
 }

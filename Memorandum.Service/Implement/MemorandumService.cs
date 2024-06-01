@@ -74,8 +74,7 @@ namespace Memorandum.Service.Implement
                 throw new MemorandumNotFoundException($"id {parameterDto.Id} not found");
             }
 
-            var parameterModel = _mapper.Map<UpdateMemorandumParameterModel>(parameterDto); 
-            
+            var parameterModel = _mapper.Map<UpdateMemorandumParameterModel>(parameterDto);            
             var success = await _memorandumRepository.UpdateAsync(parameterModel);
             if (!success)  
             {
@@ -98,18 +97,14 @@ namespace Memorandum.Service.Implement
             }
 
             var resultDataModel = await _memorandumRepository.GetDetailAsync(id);
-
             if (resultDataModel is null)
             {
                 throw new MemorandumNotFoundException($"id {id} not found");
             }
 
             var resultModelDto = _mapper.Map<MemorandumResultModelDto>(resultDataModel);
-
             return resultModelDto;
-
         }
-
 
         /// <summary>
         /// 取得所有資料
@@ -122,7 +117,6 @@ namespace Memorandum.Service.Implement
 
             return resultModelDto;
         }
-
 
         /// <summary>
         /// 刪除資料

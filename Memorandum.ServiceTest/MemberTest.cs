@@ -102,6 +102,7 @@ namespace Member.ServiceTest
                 Password = "00000"
             };
             _encryptHelper.HashPassword(Arg.Any<string>()).Returns("456fdg465rgegf");
+
             _memberRepository.GetAsync(Arg.Any<LoginMemberParameterModel>()).Returns(new LoginMemberDataModel
             {
                 Account = "qqq123",
@@ -131,7 +132,6 @@ namespace Member.ServiceTest
                 Account = "qqq123",
                 Password = "00000"
             };
-
             _memberRepository.GetAsync(Arg.Any<LoginMemberParameterModel>()).ReturnsNull();
 
             //actual
