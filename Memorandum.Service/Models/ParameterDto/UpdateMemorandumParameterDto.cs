@@ -10,6 +10,10 @@ namespace Memorandum.Service.Models.ParameterDto
     public class UpdateMemorandumParameterDto
     {
         /// <summary>
+        /// Id
+        /// </summary>
+        public Guid Id { get; set; }
+        /// <summary>
         /// 標題
         /// </summary>
         public string Title { get; set; }

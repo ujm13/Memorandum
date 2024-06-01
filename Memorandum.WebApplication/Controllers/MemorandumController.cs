@@ -6,7 +6,6 @@ using Memorandum.WebApplication.infrastructure.ExceptionFilters;
 using Memorandum.WebApplication.Models.Parameters;
 using Memorandum.WebApplication.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata;
 
 namespace Memorandum.WebApplication.Controllers
 {
@@ -67,7 +66,8 @@ namespace Memorandum.WebApplication.Controllers
         public async Task<IActionResult> UpdateAsync([FromRoute]Guid id,[FromBody] UpdateMemorandumParameter parameter)
         {
             var parameterDto = _mapper.Map<UpdateMemorandumParameterDto>(parameter);
-            var success = await _memorandumService.UpdateAsync(id,parameterDto);
+            parameterDto.Id = id;
+            var success = await _memorandumService.UpdateAsync(parameterDto);
 
             return Ok(new ResultViewModel<bool>
             {
